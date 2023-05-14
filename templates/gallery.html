@@ -1,0 +1,135 @@
+
+<link href="https://fonts.googleapis.com/css?family=Arvo|Monoton&display=swap" rel="stylesheet">
+
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <div class="container">
+      <h1 id="logo">Our Gallery</h1>
+      <p></p>
+    </div>
+  </header>
+
+  <!-- Image Gallery Section -->
+  {% for i in photos %}
+  <section class="gallery">
+    <img src="{{i.image.url}}" alt="">
+  </section>
+{% endfor %}
+  <!-- Clear Floats -->
+  <div class="clr"></div>
+
+
+{% include 'footer.html' %}
+</body>
+<style>
+    /* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Utility Classes */
+.container {
+    margin: auto;
+    width: 80%;
+    overflow: hidden;
+}
+
+.clr {
+    clear: both;
+}
+
+/* Main Styling */
+html, body {
+    font-family: 'Arvo', 'Segoe UI', sans-serif;
+    font-size: 16px;
+    background: #D6E5E3;
+}
+
+#logo, p {
+    color: #CACFD6;
+}
+
+#logo {
+    font-family: 'Monoton', sans-serif;
+    text-align: center;
+    font-size: 4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5rem;
+    padding: 10px;
+}
+
+p {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+/* Header Animation */
+header #logo,
+header p {
+    animation: 1s forwards changeColor;
+}
+@keyframes changeColor {
+    0% {
+        color: #CACFD6;
+    }
+    100% {
+        color: #333333;
+    }
+}
+
+/* Image Gallery */
+.gallery {
+    margin-top: 30px;
+    padding: 0 20px;
+}
+
+img {
+    width: 20%;
+    float: left;
+    transition: transform .3s ease-in;
+}
+
+.gallery img:hover {
+    filter: none;
+    transform: scale(1.150);
+}
+
+/* Footer Section */
+footer {
+    margin-top: 50px;
+    padding: 20px 0;
+    background: #517664;
+}
+
+footer p {
+    font-size: 1rem;
+}
+
+/* Media Queries */
+
+/* Tablet Size */
+@media screen and (max-width: 768px) {
+    img {
+        width: 50%;
+    }
+}
+
+/* Mobile Size */
+@media screen and (max-width: 690px) {
+    img {
+        float: none;
+        width: 100%;
+    }
+    #logo {
+        font-size: 3rem;
+    }
+    p {
+        font-size: 1rem;
+    }
+}
+</style>
+</html>

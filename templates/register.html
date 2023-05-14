@@ -1,0 +1,234 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Create an account</title>
+	<link rel="stylesheet" href="{% static 'css/reg_style.css' %}">
+	</head>
+<body>
+{% include 'includes/navbar.html' %}<br><br>
+	<div class="box">
+		<form action="register" method="POST" autocomplete="off" onsubmit="return Val()">
+			{% csrf_token %}
+			<h2><font color="#b903f6">Create An Account</font></h2>
+			<div class="inputBox">
+				<input type="text" id="name" name="username" required="required" placeholder="username" onkeyup="return Validate()">
+				<span id="msg1"></span>
+				<i></i>
+			</div>
+			<div class="inputBox">
+				<input type="text" id="first_name" name="first_name" required="required" placeholder="First Name" onkeyup="return ValidateName1()">
+				<span id = "name1"></span>
+				<i></i>
+			</div>
+			<div class="inputBox">
+				<input type="text" id="last_name" name="last_name" required="required" placeholder="Last Name" onkeyup="return ValidateName2()">
+				<span id = "name2"></span>
+				<i></i>
+			</div>
+			<div class="inputBox">
+				<input type="email" id="email" name="email" required="required" placeholder="Email"  onkeyup="return ValidateEmail()">
+				<span id="emailer"></span>
+				<i></i>
+			</div>
+			<div class="inputBox">
+				<input type="password" id="password" name="password" required="required" placeholder="Password" onkeyup="return Validatepassword()">
+				<span id="passworder"></span>
+				<i></i>
+			</div>
+			<div class="inputBox">
+				<input type="password" id="cpassword" name="cpassword" required="required" placeholder="Confirm Password" onkeyup="return Confirmpass()">
+				<span id="cpassworder"></span>
+				<i></i>
+			</div>
+			<div class="links">
+				<a href="login">Already have an account?</a>
+				<a href="/">Home</a>
+			</div>
+			<center><input type="submit" name ="submit"  value="Submit" ></center>
+
+		</form>
+
+{% for msg in messages %}
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+	swal("{{msg}}");
+</script>
+{% endfor %}
+		<script>
+
+			function Validate()
+			{
+			var val = document.getElementById('name').value;
+			if (!val.match(/^[a-z0-9\. ]*$/))
+			{
+			  document.getElementById('msg1').innerHTML="Only Small letters & numbers are allowed";
+					document.getElementById('name').value = val;
+					document.getElementById('name').style.color = "red";
+				   // document.getElementById('contact_section input').style.border = "red";
+					  return false;
+					 flag=1;
+			}
+			if(val.length<3||val.length>10){
+			  document.getElementById('msg1').innerHTML="Between 3 to 10 characters";
+					document.getElementById('name').value = val;
+
+
+				document.getElementById('name').style.color = "red";
+					  return false;
+
+			}
+			else{
+
+
+			  document.getElementById('msg1').innerHTML=" ";
+			  document.getElementById('name').style.color = "green";
+			 //return true;
+			}
+		  }
+
+		  function ValidateName1()
+			{
+			var val = document.getElementById('first_name').value;
+			if (!val.match(/^[A-Za-z ]*$/))
+			{
+			  document.getElementById('name1').innerHTML="Only alphabets are allowed";
+					document.getElementById('first_name').value = val;
+					document.getElementById('first_name').style.color = "red";
+				   // document.getElementById('contact_section input').style.border = "red";
+					  return false;
+					 flag=1;
+			}
+			if(val.length<3||val.length>10){
+			  document.getElementById('name1').innerHTML="Between 3 to 10 characters";
+					document.getElementById('first_name').value = val;
+
+
+				document.getElementById('first_name').style.color = "red";
+					  return false;
+
+			}
+			else{
+
+
+			  document.getElementById('name1').innerHTML=" ";
+			  document.getElementById('first_name').style.color = "green";
+			 //return true;
+			}
+		  }
+
+		  function ValidateName2()
+			{
+			var val = document.getElementById('last_name').value;
+			if (!val.match(/^[A-Za-z ]*$/))
+			{
+			  document.getElementById('name2').innerHTML="Only alphabets are allowed";
+					document.getElementById('last_name').value = val;
+					document.getElementById('last_name').style.color = "red";
+				   // document.getElementById('contact_section input').style.border = "red";
+					  return false;
+					 flag=1;
+			}
+			if(val.length<1||val.length>10){
+			  document.getElementById('name2').innerHTML="Between 1 to 10 characters";
+					document.getElementById('last_name').value = val;
+
+
+				document.getElementById('last_name').style.color = "red";
+					  return false;
+
+			}
+			else{
+
+
+			  document.getElementById('name2').innerHTML=" ";
+			  document.getElementById('last_name').style.color = "green";
+			 //return true;
+			}
+		  }
+			function ValidateEmail()
+			{
+
+			  var email=document.getElementById('email').value;
+			  var mailformat =/^([a-zA-Z0-9\._]+)@([a-zA-Z0-9])+.([a-z]+)(.[a-z]+)?$/
+			// var atposition=email.indexOf("@");
+			// var dotposition=email.indexof(".");
+
+			  // if(email.length<3||email.length>20){
+			  //   document.getElementById('emailer').innerHTML="Invalid Email";
+			  //       document.getElementById('email').value = email;
+			  //       document.getElementById('email').style.color = "red";
+			  //      // alert("err");
+			  //         return false;
+			  // }
+			 if(email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+
+			  document.getElementById('emailer').innerHTML=" ";
+			  document.getElementById('email').style.color = "green";
+
+			  }
+			  else{
+
+			 //return true;
+			 document.getElementById('emailer').innerHTML="Please enter a valid Email";
+				document.getElementById('email').value = email;
+					document.getElementById('email').style.color = "red";
+			  return false;
+
+			  }}
+
+			 function Validatepassword()
+			 {
+
+			  var pass=document.getElementById('password').value;
+			  var patt="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/";
+			   if (pass.length<8)
+						{
+				document.getElementById('passworder').innerHTML="Atleast 8 character ";
+				document.getElementById('password').value = pass;
+					document.getElementById('password').style.color = "red";
+			  return false;
+			  }
+
+			  else{
+			  document.getElementById('passworder').innerHTML=" ";
+			  document.getElementById('password').style.color = "green";
+			// return true;s
+
+			}
+		  }
+		  function Confirmpass()
+			 {
+
+			  var pass1=document.getElementById('password').value;
+			  var pass2=document.getElementById('cpassword').value;
+			   if (pass1!=pass2)
+						{
+				document.getElementById('cpassworder').innerHTML="Password doesnt match ";
+				document.getElementById('cpassword').value = pass;
+					document.getElementById('cpassword').style.color = "red";
+			  return false;
+			  }
+
+			  else{
+			  document.getElementById('cpassworder').innerHTML=" ";
+			  document.getElementById('cpassword').style.color = "green";
+			// return true;s
+
+			}
+		  }
+			function Val()
+			{
+			  if(Validate()===false || ValidateName1()==false || ValidateName2()==false || ValidateEmail()===false || Validatepassword()===false || Confirmpass()===false)
+			  {
+				return false;
+			  }
+			}
+
+	   </script>
+	</div>
+
+</body>
+
+</html>

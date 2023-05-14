@@ -1,0 +1,100 @@
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="/">Beauty Parlour & Shopping</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <div>
+            <form class="d-flex" action="{% url 'Search_App:SearchResult' %}" method="get">
+        {% csrf_token %}
+              <input class="form-control me-2" type="search" placeholder="Search" name="q" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+          </div>
+          <li><a href="/" class="">Home</a></li>
+          <li><a href="{% url 'ShoppingApp:allProdCat' %}" class="{% if request.resolver_match.url_name == 'allProdCat' %} active {% endif %}">All</a></li>
+          <li class="dropdown {% if 'shop' in request.path %} active {% endif %}"><a href="#"><span>Categories</span> <i class="bi bi-chevron-down"></i></a>
+          <ul>
+              {% for cat in links %}
+              <li><a href="{{cat.get_url}}" >{{cat.name}}</a></li>
+              {% endfor %}
+              </li>
+          </ul>
+          </li>
+          {% if item_count > 0 %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'cart:cart_detail' %}"><img src="{% static 'images/cart.png' %}" alt="mdo" width="32" height="32" class="rounded-circle">
+            <b><font size="2"color="red">{{item_count}}</font></b></a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'cart:cart_detail' %}"><img src="{% static 'images/cart.png' %}" alt="mdo" width="32" height="32" class="rounded-circle">
+            <b><font size="2"color="red"></font></b></a>
+          </li>
+          {% endif %}
+          {% if user.is_authenticated %}
+          <div class="dropdown text-end">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="{% static 'images/user.png' %}" alt="mdo" width="32" height="32" class="rounded-circle"> {{user.first_name}}
+            </a>
+            <ul class="dropdown-menu text-small">
+              <li><a class="dropdown-item" href="/appointment_info">Appointment Review</a></li>
+              <li><a class="dropdown-item" href="/user">Profile</a></li>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            </ul>
+          </div>
+          {% else %}
+          <li><a href="/register">Register</a></li>
+          <li class="dropdown"><a href="#"><span>Login</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+                <li class="dropdown"><a href="/login"><span>User</span> </a>
+                <li class="dropdown"><a href="admin/login/?next=/admin/"><span>Admin</span> </a>
+            </ul>
+          </li>
+          <li><a href="/login" >Book an Appointment</a></li>
+          {% endif %}
+            </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+<br><br><br><br>
+
+
+
+

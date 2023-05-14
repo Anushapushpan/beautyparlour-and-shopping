@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+	<title>Form Reviews</title>
+</head>
+<body>
+
+<div class="container mt-5">
+            <h5 class="test-uppercase font-weight-bold">Reviews ({{ review_count }})</h5>
+            <hr class="mt-0 pt-0">
+            <div class="row">
+              <div class="col-sm-10 mt-2">
+                {% for r in review %}
+                <div class="review-heading">
+                  <a class="text-capitalize"><i class="far fa-user mr-1"></i>&nbsp;{{r.user.username}}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a class="ml-2"><i class="far fa-clock mr-1"></i>&nbsp;{{r.date_created|date:'d-M-Y' }}</a>
+                  <i class="fa fa-star" style="float: right;{% if r.rating > 4 %} color: #FFD700; {% endif %}"></i>
+                  <i class="fa fa-star" style="float: right; {% if r.rating > 3 %}  color: #FFD700;{% endif %}"></i>
+                  <i class="fa fa-star" style="float: right; {% if r.rating > 2 %} color: #FFD700; {% endif %}"></i>
+                  <i class="fa fa-star" style="float: right; {% if r.rating > 1 %} color: #FFD700; {% endif %}"></i>
+                  <i class="fa fa-star" style="float: right; {% if r.rating > 0 %} color: #FFD700; {% endif %}"></i>
+                </div>
+                <div class="review-body mt-2">
+                    <p>{{r.review_text}}</p>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+<style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+.star-rating {
+  display: inline-block;
+}
+
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating label {
+  color: #ddd;
+  
+  cursor: pointer;
+}
+
+.star-rating label:hover {
+  color: #FFD700;
+}
+
+.star-rating .active {
+  color: #FFD700;
+}
+
+:root {
+  --yellow: #ffbd13;
+  --blue: #4383ff;
+  --blue-d-1: #3278ff;
+  --light: #f5f5f5;
+  --grey: #aaa;
+  --white: #fff;
+  --shadow: 8px 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+</style>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{% extends 'shopping/base.html' %}
+{% load static %}
+{% block metadescription %}
+   This is the order page.Review your items.
+{% endblock %}
+{% block title %}
+    My Orders Page
+{% endblock %}
+{% block content %}
+
+<div class="container my-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow ">
+                <div class="card-header">
+                    <h3 class="mb-0">My Orders</h3>
+                </div>
+                <div class="card-body">
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Order Date</th>
+                            <th>Tracking Number</th>
+                            <th>Total Price</th>
+                            <th>Status</th>
+                            <th>Invoice</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in orders %}
+                        <tr>
+                            <td>{{item.created_at}}</td>
+                            <td>{{item.tracking_no}}</td>
+                            <td>{{item.total_price|floatformat:0}}.00</td>
+                            {% if item.status == "Completed" %}
+                            <td><span class="badge text-bg-success">{{item.status}}</span></td>
+                            {% else %}
+                            <td><span class="badge text-bg-warning">{{item.status}}</span></td>
+                            {% endif %}
+                            <td>
+                                <a href="{% url 'cart:payment_receipt' payment_id=item.payment_id %}"><img src="{% static 'images/pdf.png' %}" height="40px" width="40px"></a>
+                            </td>
+                            <td>
+                                <a href="{% url 'cart:orderview' item.tracking_no %}" class="btn btn-dark" data-abc="true"><i class="fa fa-eye"></i>&nbsp;View</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{item.tracking_no}}
+<style>
+     .btn-dark{color: #ffffff;background-color: #a421ea;border-color: #910ae6;border-radius: 1px}
+    .btn-dark:hover{color: #ffffff;background-color: #8c17e0;border-color: #8116d9;border-radius: 1px}
+</style>
+{% endblock content %}

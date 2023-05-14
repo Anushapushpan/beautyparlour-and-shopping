@@ -1,0 +1,149 @@
+{% extends 'shopping/base.html' %}
+{% load static %}
+{% block metadescription %}
+   This is the cart page. Proceed to review your items and place the order
+{% endblock %}
+{% block title %}
+    Checkout
+{% endblock %}
+{% block content %}
+{% if not cart_items%}
+<div>
+
+<div>
+    <div class="text-center">
+        <br>
+        <h1 class="text-center my_title">
+            Your Shopping Cart is empty!
+        <br><br><br><br>
+        <table>
+            <tr>
+            <td>
+            <img src="{% static 'images/empty.gif' %}" alt="A GIF" width="500" height="300" style="display:block; margin:auto;"></td>
+            <td>
+        </h1>
+        <br>
+        <p class="text-center">
+            Please Click <a href="{% url 'ShoppingApp:allProdCat' %}">Here </a> to continue shopping.
+        </p>
+        </td>
+         </tr>
+        </table></div>
+</div></div>
+{% else %}
+<div class="container my-3">
+    <form action="{% url 'cart:placeorder' %}" method="post" id="myForm">
+        {% csrf_token %}
+    <div class="row">
+        <div class="col-md-7">
+            <div class="card shadow ">
+                <div class="card-body">
+                <h6>Basic Details</h6>
+                    <hr>
+                    <div class="row checkoutform">
+                        <div class="col-md-6">
+                        <label>First name</label>
+                        <input type="text" required value="{{ request.user.first_name }}" class="form-control" name="fname" placeholder="Enter First Name">
+                        </div>
+                        <div class="col-md-6">
+                        <label>Last name</label>
+                        <input type="text" required value="{{ request.user.last_name }}" class="form-control" name="lname" placeholder="Enter Last Name">
+                        </div>
+                        <div class="col-md-6 mt-2">
+                        <label>Email</label>
+                        <input type="text" required value="{{ request.user.email }}" class="form-control" name="email" placeholder="Enter Email">
+                        </div>
+                        <div class="col-md-6 mt-2">
+                        <label>Mobile </label>
+                        <input type="text" required value="{{ userprofile.phone }}" class="form-control" name="phone" placeholder="Enter Mobile Number">
+                        </div>
+                        <div class="col-md-12 mt-2">
+                        <label>Address</label>
+                            <textarea required class="form-control" name="address" placeholder="Enter Address">{{ userprofile.address }}</textarea>
+                        </div>
+                        <div class="col-md-6 mt-2">
+                        <label>City</label>
+                        <input type="text" required value="{{ userprofile.city }}" class="form-control" name="city" placeholder="Enter City">
+                        </div>
+                        <div class="col-md-6 mt-2">
+                        <label>State</label>
+                        <input type="text" required value="{{ userprofile.state }}" class="form-control" name="state" placeholder="Enter State">
+                        </div>
+                        <div class="col-md-6 mt-2">
+                        <label>Country</label>
+                        <input type="text" required value="{{ userprofile.country }}" class="form-control" name="country" placeholder="Enter Country">
+                        </div>
+                        <div class="col-md-6 mt-2">
+                        <label>Pincode</label>
+                        <input type="text" required value="{{ userprofile.pincode }}" class="form-control" name="pincode" placeholder="Enter Pincode">
+                        </div>
+                    </div>
+            </div>
+            </div>
+        </div>
+    <div class="col-md-5">
+        <div class="card shadow">
+            <div class="card-body">
+                <h6>Order Summary</h6>
+                <hr>
+                {% if not cart_items %}
+     <div class="text-center">
+        <br>
+        <h1 class="text-center my_title">
+            Your Shopping Cart is empty!
+        </h1>
+        <br>
+        <p class="text-center">
+            Please Click <a href="{% url 'ShoppingApp:allProdCat' %}">Here </a> to continue shopping.
+        </p>
+    </div>
+</div>
+{% else %}
+            <table class="table table-stripeds table-bordereds">
+                <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for cart_item in cart_items %}
+                <tr>
+                    <td>
+                        <img src="{{cart_item.product.image.url}}" height="70px" class="me-2" width="70px"></td>
+                      <td><p style="text-transform:capitalize">  {{cart_item.product.name}}</p></td>
+                    <td>{{cart_item.quantity}}</td>
+                    <td>{{cart_item.sub_total|floatformat:0}}.00</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <h7>Delivery Charge
+            <span class="float-end">  40</span>
+            </h7><br><br>
+            <h6 class="fw-bold">Grand Total
+            <span class="float-end"> Rs {{price|floatformat:0}}.00</span>
+            </h6>
+<!--            <input type="hidden" value="Paid by Razorpay" name="payment_mode">-->
+            <div class="mt-3">
+
+                <input type="button" name="pay" id ="rzp-button1" onclick="pay_now()"  class="btn btn-outline-primary payWithRazorpay w-100 float-end" value="Pay by Razorpay"><center></center></input>
+            </div>
+        </div>
+    </div>
+</div>
+    </form>
+</div>
+</div>
+<!-- Replace "test" with your own sandbox Business account app client ID -->
+    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% endif %}
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+{% endblock scripts %}

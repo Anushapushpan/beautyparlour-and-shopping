@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Login Form</title>
+	<link rel="stylesheet" href="{% static 'css/login_style.css' %}">
+</head>
+<body>
+{% for msg in messages %}
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+swal("{{msg}}");
+</script>
+{% endfor %}
+{% include 'includes/navbar.html' %}
+	<div class="box">
+		<form action="login" method="POST" autocomplete="off">
+			{% csrf_token %}
+			<h2 class="card__title">Sign in</h2>
+			<div class="inputBox">
+				<input type="text" name="username" required="required">
+				<span>Username</span>
+				<i></i>
+			</div>
+			<div class="inputBox">
+				<input type="password" name="password" required="required">
+				<span>Password</span>
+				<i></i>
+			</div>
+			<div class="links">
+				<a href="{% url 'password_reset' %}">Forgot Password ?</a>
+				<a href="register">Signup</a>
+			</div>
+			<center><input type="submit" name="submit" value="Login">
+				<div class="links">	
+			<a href=""></a><br>
+			<a href="/">Home</a></center>
+		</div>
+		</form>
+	</div>
+
+</body>
+</html>

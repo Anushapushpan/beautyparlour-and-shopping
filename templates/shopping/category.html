@@ -1,0 +1,119 @@
+{% extends 'shopping/base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if category %}
+        {{category.description|truncatewords:155}}
+    {% else %}
+        Welcome to Shopping page where you can buy different items...
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+{% if category %}
+        {{category.name}} - Shopping
+    {% else %}
+        See our New Collections-Shopping
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if category %}
+<div>
+    <div class="row my_row_class">
+        <div class="mx-auto">
+        <p> <a href="{% url 'ShoppingApp:allProdCat' %}">Our Product Collections</a></p>
+    </div>
+</div>
+    </div>
+{% endif %}
+
+<div class="mx_auto">
+ {% if category %}
+</div>
+<br>
+<div>
+    <h1 class="text-center my_title">{{category.name}}</h1>
+    <p class="text-justify">{{category.description}}</p>
+</div>
+{% else %}
+<!--<div>-->
+<!--<img class="my_image my_image_padding" src="{% static 'img/banner.png' %}" alt="our products" width="1350px">-->
+<!--</div>-->
+
+<br>
+<div>
+    <h1 class="text-center my_title"><b>Our products Collections</b></h1><br>
+    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+        ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non president, sunt in culpa qui official deserunt mollit anim id est laborum.</p><br>
+</div>
+{% endif %}
+
+
+  <script>
+    const colorSelect = document.querySelector('#color-select');
+    const videoContainer = document.querySelector('#video-container');
+    const video = document.createElement('video');
+  </script>
+
+
+<div class="container" >
+    <div class="row mx_auto">
+        {% for product in products.object_list %}
+        <div class="my_bottom_margin col-12 col-sm-12 col-md-4 xol-lg-4" >
+            <div class="polaroid" style="min-width:18rem;"><br>
+                <a href="{{product.get_url}}"><img class="card-img-top my_image" src="{{product.image.url}}" alt="{{product.name}}"></a>
+            <div class="card-body" ><br>
+                <h4><p style="text-transform:capitalize" name="product">{{product.name}}</p></h4>
+
+<div class="rating">
+    <i class="fa fa-star" style="{% if product.avg_rating > 0 %} color: #FFD700;{% else %} color:  #333333; {% endif %}"></i>
+    <i class="fa fa-star" style="{% if product.avg_rating > 1 %}  color: #FFD700;{% else %} color:  #333333; {% endif %}"></i>
+    <i class="fa fa-star" style="{% if product.avg_rating > 2 %} color: #FFD700;{% else %} color:  #333333; {% endif %}"></i>
+    <i class="fa fa-star" style="{% if product.avg_rating > 3 %} color: #FFD700; {% else %} color:  #333333;{% endif %}"></i>
+    <i class="fa fa-star" style="{% if product.avg_rating > 4 %} color: #FFD700;{% else %} color:  #333333; {% endif %}"></i>
+</div>
+
+<p><font size="4">Rs. {{product.dis_price|floatformat:2}}</font>
+<font color="#7a756c"> <s>Rs. {{product.price}}</s>&nbsp;</font>
+<font color="red" size="4">{{product.discount}}% off</font></p>
+{% if product.stock <= 0 %}
+    <p class="text-justify my_prod_text"><b><font color="red">Out of Stock</font> </b></p>
+{% else %}
+
+<a class="button" href="{% url 'cart:add_cart' product.id %}">Add to Cart</a>
+{% if product.is_tryon_eligible %}
+  <a class="button" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    <i class="fa fa-camera"></i> &nbsp;Try On
+  </a>
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+    <p><a href="{% url 'cart:tryon' %}"><button class="circle-btn" ></button> &nbsp;</a>
+    <a href="{% url 'cart:tryon_pink' %}"><button class="circle-btn1"></button> </a>&nbsp;
+    <a href="{% url 'cart:tryon_red' %}">   <button class="circle-btn2"></button></a></p>
+    </div>
+  </div>
+{% endif %}
+{% endif %}
+    </div>
+    </div>
+    </div>
+{% endfor %}
+    </div>
+    <div class="mx-auto">
+{% if products.paginator.num_pages > 1 %}
+<hr>
+        <div class="text-center">
+{% for pg in products.paginator.page_range %}
+            <a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %} active {% endif %}">{{pg}}</a>
+{% endfor %}
+        </div>
+{% endif %}
+        </div>
+    <br>
+</div>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Appointment Confirmation</title>
+</head>
+<body>
+	<h2>Appointment Confirmation</h2>
+	<p>Dear {{ appointment.user.first_name }},</p>
+	<p>Your appointment has been confirmed:</p>
+	<ul>
+		<li><strong>Service:</strong> {{ appointment.service }}</li>
+		<li><strong>Date:</strong> {{ appointment.date }}</li>
+		<li><strong>Time:</strong> {{ appointment.time }}</li>
+	</ul>
+	<p>Thank you for choosing our service!</p>
+<p>For any questions or concerns, please contact us at <a href="mailto:beautyparlour801@gmail.com" class="link">beautyparlour801@gmail.com</a>.</p>
+</body>
+</html>

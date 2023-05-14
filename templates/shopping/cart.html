@@ -1,0 +1,139 @@
+{% extends 'shopping/base.html' %}
+{% load static %}
+{% block metadescription %}
+   This is the cart page. Proceed to review your items and place the order
+{% endblock %}
+{% block title %}
+    Cart
+{% endblock %}
+{% block content %}
+{% if not cart_items%}
+     <div class="text-center">
+        <br>
+        <h1 class="text-center my_title">
+            Your Shopping Cart is empty!<br><br><br><br>
+        <table>
+            <tr>
+                <td>
+                    <img src="{% static 'images/empty.gif' %}" alt="A GIF" width="500" height="300" style="display:block; margin:auto;"></td>
+                    <td>
+                    </h1>
+                    <br>
+                    <p class="text-center">
+                        Please Click <a href="{% url 'ShoppingApp:allProdCat' %}">Here </a> to continue shopping.
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% else %}
+<div>
+    <div class="text-center">
+        <br>
+        <h1 class="text-center my_title">
+            <b>Your Shopping Cart</b>
+        </h1>
+        <br>
+    </div>
+</div>
+<div class="row mx-auto">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <table class="table my_custom_table ">
+            <thead class="my_custom_thead">
+            <tr>
+                <th colspan="5">
+                    Your Items
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cart_item in cart_items %}
+            <tr>
+                <td>
+                    <a href="cart_item.product.get_absolute_url"><img class="card-img-top my_image" src="{{cart_item.product.image.url}}" alt="" class="float-left rounded custom_image"></a>
+                </td>
+                <td class="text-left">
+                    <b><p style="text-transform:capitalize">{{cart_item.product.name}}</p></b>
+                    ID: {{cart_item.product.id}}
+                    <br>
+                    Price: Rs. {{cart_item.discounted_price|floatformat:0}}.00
+                    <br>
+                    Qty : {{cart_item.quantity}} x Rs. {{cart_item.discounted_price|floatformat:0}}.00
+                </td>
+                <td>
+                    <font color="red" size="4">{{cart_item.product.discount}}% off</font></p>
+                    Total  Rs.{{cart_item.sub_total|floatformat:0}}.00
+                </td>
+                {% if cart_item.quantity < cart_item.product.stock %}
+                <td>
+                    <a href="{% url 'cart:add_cart' cart_item.product.id %}" class="custom_a"><i class="fa fa-plus custom_icon"></i></a><br><br>
+                    <a href="{% url 'cart:cart_remove' cart_item.product.id %}" class="custom_a"><i class="fa fa-minus custom_icon"></i></a><br><br>
+                    <a href="{% url 'cart:full_remove' cart_item.product.id %}" class="custom_icon"><i class="fa fa-trash custom_icon"></i></a>
+                </td>
+                {% else %}
+                <td>
+                    &nbsp;<a href="{% url 'cart:cart_remove' cart_item.product.id %}" class="custom_a"><i class="fa fa-minus custom_icon"></i></a>
+                    &nbsp;<a href="{% url 'cart:full_remove' cart_item.product.id %}" class="custom_icon"><i class="fa fa-trash custom_icon"></i></a>
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+<div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+    <table class="table my_custom_table ">
+        <thead class="my_custom_thread">
+            <tr>
+                <th colspan="5">
+                    Checkout
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td>
+                Total MRP (without Discount)
+            </td>
+            <td>
+                Rs.{{original_price}}.00
+            </td>
+            <tr>
+            <tr>
+            <td>
+                <b><font color="green">Saving on MRP</font></b>
+            </td>
+            <td>
+                <b><font color="green">Rs.{{saving|floatformat:2}}</font></b>
+            </td>
+            <tr>
+            <td>
+                Subtotal
+            </td>
+
+            <td>
+               Rs.{{price|floatformat:2}}
+
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                Please review your shopping cart items before proceeding with the order payment.
+            </td>
+            <td></td>
+        </tr>
+        </tr>
+        </tbody>
+    </table>
+    <div class="mx-auto">
+        <a class="button" href="{% url 'ShoppingApp:allProdCat' %}">Continue Shopping</a> &nbsp;
+        <a class="button" href="{% url 'cart:checkout' %}">Checkout</a>
+    </div>
+    {% endif %}
+</div>
+</div>
+
+{% endblock %}

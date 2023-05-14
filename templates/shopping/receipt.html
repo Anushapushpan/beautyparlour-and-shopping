@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #a70de3;
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .receipt {
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .receipt h2 {
+            margin: 0 0 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .receipt p {
+            margin: 0;
+            line-height: 1.5;
+        }
+        .receipt ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        .receipt ul li {
+            margin-bottom: 5px;
+            color: #6d0397;
+        }
+        .receipt table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            color: #590378;
+        }
+        .receipt table th {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+
+        }
+        .receipt table td {
+            text-transform:capitalize;
+            border: 1px solid #ddd;
+            padding: 10px;
+            
+        }
+        .receipt .total {
+            text-align: right;
+        }
+        .receipt .total strong {
+            color: #fd0303;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Beauty and Shopping</h1>
+            <h2>Payment Receipt</h2>
+            <p>Thank you for your payment!</p>
+        </div>
+        <div class="receipt">
+            <ul>
+                <li><strong>Order ID:</strong> {{order.order_id}}</li>
+                <li><strong>Order Date:</strong> {{order.created_at}}</li>
+                <li><strong>Name:</strong> {{order.fname}} {{order.lname}}</li>
+                <li><strong>Email:</strong> {{order.email}}</li>
+                <li><strong>Phone:</strong> {{order.phone}}</li>
+            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Description</th>
+                        <th>Unit Price</th>
+                        <th>Discount</th>
+                        <th>Price(After Discount)</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in orderitems %}
+
+                    <tr>
+                        <td><p style="text-transform:capitalize">{{item.product.name}}</p></td>
+
+                        <td>{{item.product.price|floatformat:0}}.00</td>
+                        <td>{{item.product.discount}}%</td>
+                        <td>{{item.product.discounted_price|floatformat:0}}.00</td>
+                        <td>{{item.quantity}}</td>
+                        <td>Rs. {{item.total_price|floatformat:0}}.00</td>
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="total">
+                <p><span class="float-end" >Delivery Charge :Rs.40</span></p>
+                <p><span class="float-end" >Savings :Rs. {{savings}}</span></p>
+                <p><strong>Grand Total: Rs. {{order.total_price|floatformat:0}}.00</strong></p>
+            </div>
+        </div>
+        <p>If you have any questions about your payment, please contact us.</p>
+    </div>
+</body>
+</html>

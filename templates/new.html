@@ -1,0 +1,153 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+    <title>Beauty Parlour</title>
+  </head>
+<body>
+<div class="main">
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+
+    <header class="site-navbar" role="banner">
+
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-11 col-xl-2">
+            <h1 class="mb-0 site-logo"><a href="index.html" class="text-white mb-0"><h3><strong>Beauty Parlour</strong></h3></a></h1>
+          </div>
+          <div class="col-12 col-md-10 d-none d-xl-block">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+              <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+                <li class="active"><a href="index.html"><span>Home</span></a></li>
+                <li class="has-children">
+                  <a href="about.html"><span>Services</span></a>
+                  <ul class="dropdown arrow-top">
+                      <li class="has-children">
+                  <a href="Bridal">Bridal</a>
+                      <ul class="dropdown">
+                        <li><a href="Bridal">Wedding makeover</a></li>
+                        <li><a href="Bridal">Pre-wedding grooming services</a></li>
+                        <li><a href="Bridal">Exclusive bridal packages</a></li>
+                      </ul>
+                    </li>
+
+                      <li class="has-children">
+                  <a href="Hair">Hair</a>
+                      <ul class="dropdown">
+                        <li><a href="Hair">Hair cutting</a></li>
+                        <li><a href="Hair">Permanent blow-dry</a></li>
+                        <li><a href="Hair">Hair coloring</a></li>
+                          <li><a href="Hair">Hair smoothening</a></li>
+                      </ul>
+                    </li>
+
+                      <li class="has-children">
+                  <a href="Nails">Nails</a>
+                      <ul class="dropdown">
+                        <li><a href="Nails">Nail Art</a></li>
+                        <li><a href="Nails">Pedicure</a></li>
+                        <li><a href="Nails">Manicure</a></li>
+                      </ul>
+                    </li>
+
+                      <li class="has-children">
+                  <a href="Skin">Skin</a>
+                      <ul class="dropdown">
+                        <li><a href="Skin">Facials</a></li>
+                        <li><a href="Skin">Cleanup</a></li>
+                        <li><a href="Skin">Face mask</a></li>
+                          <li><a href="Skin">Threading</a></li>
+                      </ul>
+                    </li>
+
+                      <li class="has-children">
+                  <a href="Wax">Wax</a>
+                      <ul class="dropdown">
+                        <li><a href="Wax">Facial waxing</a></li>
+                        <li><a href="Wax">Body waxing</a></li>
+                      </ul>
+                    </li>
+
+                      <li class="has-children">
+                  <a href="Makeover">Makeover</a>
+                      <ul class="dropdown">
+                        <li><a href="Makeover">Airbrush Makeup</a></li>
+                        <li><a href="Makeover">HD Makeup</a></li>
+                        <li><a href="Makeover">Hair Makeover</a></li>
+                      </ul>
+                    </li>
+
+                  </ul>
+                </li>
+
+                <li><a href="listings.html"><span>Sign In</span></a></li>
+                <li><a href="about.html"><span>Sign Up</span></a></li>
+                <li><a href="blog.html"><span>About</span></a></li>
+                <li><a href="contact.html"><span>Contact</span></a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+          <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
+
+      </div>
+    </header>
+
+<!-- <div class="hero" style="background-image: url({% static 'images/image5.jpg' %});"></div> -->
+<div class="content">
+            <h1><br><br>Just Like You
+                 <br><span>We beleive in the</span> <br>magic of
+                 a fresh look.</h1><br>
+
+{% if user.is_authenticated %}
+            <a href="{%url 'appointment' %}">
+                <button class="cn" onclick="appointment"><a href="appointment">BOOK AN APPOINTMENT</a></button>
+{% else %}
+          <a href="{%url 'login' %}">
+              <button class="cn" onclick="login"><a href="login">BOOK AN APPOINTMENT</a></button>
+              {% endif %}
+
+
+    </div>
+</div>
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.sticky.js' %}"></script>
+    <script src="{% static 'js/main1.js' %}"></script>
+  </body>
+  <style>
+    .main{
+    width: 100%;
+    background-image: url({% static 'images/image5.jpg' %});
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    object-fit: scale-down;
+}
+  </style>
+</html>

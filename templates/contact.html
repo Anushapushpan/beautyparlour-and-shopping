@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Contact </title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="path/to/file/uni-form.css" media="all" rel="stylesheet"/>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</head>
+<body>
+    {% include 'includes/navbar.html' %}
+    <br><br><br><br><br><br><br>
+<main>
+    <center>
+    <h2 class="fw-bold">Keep in touch with us</h2>
+        <h6>Please do not hesitate to contact us to schedule an appointment<br>
+or to have your questions answered.</h6>
+    </center><br>
+    <div class="container text-center">
+  <div class="row">
+    <div class="col">
+        <img src="{% static 'images/loc.png' %}" alt="mdo" width="95" height="99"><br>
+        <h5 class="fw-bold"> Office</h5><br>
+        <h6>Pathanamthitta, Kerala</h6>
+        691523
+    </div>
+    <div class="col">
+      <img src="{% static 'images/contact.png' %}" alt="mdo" width="95" height="99"><br>
+        <h5 class="fw-bold"> Contact</h5><br>
+        Mobile: 7770733599
+        <h6>E-mail: beautyparlour@gmail.com</h6>
+    </div>
+    <div class="col">
+     <img src="{% static 'images/time.png' %}" alt="mdo" width="95" height="99" ><br>
+        <h5 class="fw-bold">Hour of Operation</h5><br>
+        <h6>Monday to Sunday</h6>
+        9:00am - 7:30pm
+    </div>
+  </div>
+</div>
+<br><br><br><br>
+    <div class="container">
+        <div class="row">
+        <div class="col-md-7">
+             <font color="darkviolet"> <h4 class="fw-bold">Drop a Line</h4></font>
+                <div class="card-body">
+                    <div class="row checkoutform">
+                        <div class="col-md-6">
+                        <label>First name</label>
+                        <input type="text" required value="{{ request.user.first_name }}" class="form-control" name="fname" placeholder="Enter First Name">
+                        </div>
+                        <div class="col-md-6">
+                        <label>Last name</label>
+                        <input type="text" required value="{{ request.user.last_name }}" class="form-control" name="lname" placeholder="Enter Last Name">
+                        </div>
+                        <div class="col-md-6 mt-2">
+                        <label>Email</label>
+                        <input type="text" required value="{{ request.user.email }}" class="form-control" name="email" placeholder="Enter Email">
+                        </div>
+                        <div class="col-md-6 mt-2">
+                        <label>Mobile </label>
+                        <input type="text" required value="{{ userprofile.phone }}" class="form-control" name="phone" placeholder="Enter Mobile Number">
+                        </div>
+                        <div class="col-md-12 mt-2">
+                        <label>Feedback</label>
+                            <textarea required class="form-control" name="address" placeholder="Enter Address"></textarea>
+                        </div>
+                        <div class="mt-3">
+                        <button type="submit" class="btn btn-success"><center>Submit</center></button>
+                        </div>
+
+
+                    </div>
+            </div>
+            </div>
+            <div class="col-md-5">
+             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'images/image12.jpg' %}" class="d-block w-100 shadow" alt="...">
+    </div>
+      <div class="carousel-item">
+      <img src="{% static 'images/image2i.jpg' %}" class="d-block w-100 shadow" alt="...">
+    </div>
+
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+
+        </div>
+    </div>
+</main>
+<br><br><br>
+<style>
+    .btn-success {
+    background-color: darkviolet;
+}
+    .btn-success:hover {
+    color: #212529;
+}
+</style>
+{% include 'footer.html' %}

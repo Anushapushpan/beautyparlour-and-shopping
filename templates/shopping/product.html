@@ -1,0 +1,115 @@
+{% extends 'shopping/base.html' %}
+{% load static %}
+{% block metadescription %}
+
+        {{product.description|truncatewords:155}}
+
+
+
+{% endblock %}
+
+{% block title %}
+{% if category %}
+        {{product.name}} - Shopping
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row my_prod_row_class" xmlns="http://www.w3.org/1999/html">
+    <div class="mx_auto">
+        <p><h6><a href="{% url 'ShoppingApp:allProdCat' %}">Home</a> | <a href="{{product.category.get_url}}" >{{product.category}}</a> | {{product.name}}</h6></p>
+    </div>
+</div>
+<div class="container">
+<br>
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+            <div style="min-width:13rem;">
+                <img class="card-img-top my_image" src="{{product.image.url}}" alt="{{product.name}}">
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div>
+                <h1 class="my_prod_title" name="product"><b>{{product.name}}</b></h1>
+{% if rounded_rating %}
+                <div class="rating">
+                    <i class="fa fa-star" style="float: right;{% if rounded_rating > 0 %} color: #FFD700;{% else %} color:  #333333; {% endif %}"></i>
+                    <i class="fa fa-star" style="float: right; {% if rounded_rating > 1 %}  color: #FFD700;{% else %} color:  #333333; {% endif %}"></i>
+                    <i class="fa fa-star" style="float: right; {% if rounded_rating > 2 %} color: #FFD700;{% else %} color:  #333333; {% endif %}"></i>
+                    <i class="fa fa-star" style="float: right; {% if rounded_rating > 3 %} color: #FFD700; {% else %} color:  #333333;{% endif %}"></i>
+                    <i class="fa fa-star" style="float: right; {% if rounded_rating > 4 %} color: #FFD700;{% else %} color:  #333333; {% endif %}"></i>
+                </div>
+{% endif %}
+                <p><s><font color="#7a756c"> Rs.{{product.price}}</font></s>&nbsp;
+                <font size="4"> Rs. {{discounted_price|floatformat:2}}</font>&nbsp;
+                <font color="red" size="4">{{product.discount}}% off</font></p>
+                <p class="my_title"><b>Product Description</b></p>
+                <p class="text-justify ">{{product.description}}{{shades.shade1}}</p>
+{% if product.stock <= 0 %}
+            <p class="text-justify my_prod_text"><b><font color="red"> Out of Stock</font></b></p>
+{% else %}
+            <a class="button" href="{% url 'cart:add_cart' product.id %}">Add to Cart</a>
+{% if product.is_tryon_eligible %}
+
+            <a class="button" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <i class="fa fa-camera"></i> &nbsp;Try On
+            </a>
+            <p>   
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <p><a href="{% url 'cart:tryon' %}"><button class="circle-btn" ></button> &nbsp;</a>
+                    <a href="{% url 'cart:tryon_pink' %}"><button class="circle-btn1"></button> </a>&nbsp;
+                    <a href="{% url 'cart:tryon_red' %}">   <button class="circle-btn2"></button></a></p>
+                </div>
+            </div>
+            </p>
+{% endif %}
+{% endif %}
+        </div>
+        <br><br>
+{% include 'shopping/review.html' %}
+
+    </div>
+
+    </div>
+    {% if category_products %}
+<h5>Other products in Similar category:</h5><br>
+    <div>
+    <div class="row  owl-carousel owl-theme">
+{% for category_product in category_products %}
+        <div class="my_bottom_margin col-12 col-sm-12 col-md-4 xol-lg-4 item" >
+            <div class="polaroid" style="min-width:14rem; min-height:24rem; height: 120px; margin-bottom: 20px; width: 100%; position: relative;"><br>
+                <a href="{{ category_product.get_url }}"><img class="card-img-top my_image" height="30px" width="70px" src="{{category_product.image.url}}" alt="{{ category_product.name }} " style="max-width: 100%;
+	max-height: 100%; display: inline-block; "></a>
+                <div class="card-body"><br>
+                    <h4><p style="text-transform:capitalize">{{ category_product.name }}</p></h4>
+                    <p><font size="4">Rs. {{category_product.dis_price|floatformat:2}}</font>
+                    <font color="#7a756c"> <s>Rs. {{category_product.price}}</s>&nbsp;</font>
+                    <font color="red" size="4">{{category_product.discount}}% off</font></p>
+{% if category_product.stock <= 0 %}
+                <p class="text-justify my_prod_text"><b><font color="red">Out of Stock</font> </b></p>
+{% else %}
+                <a class="button" href="{% url 'cart:add_cart' product.id %}" style="padding: 1px 1px;">Add to Cart</a>
+{% if category_product.is_tryon_eligible %}
+                <a class="button" data-bs-toggle="collapse" href="#collapseExample" style="padding: 1px 2px;" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <i class="fa fa-camera"></i> &nbsp;Try On
+                </a>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                        <p><a href="{% url 'cart:tryon' %}"><button class="circle-btn" ></button> &nbsp;</a>
+                        <a href="{% url 'cart:tryon_pink' %}"><button class="circle-btn1"></button> </a>&nbsp;
+                        <a href="{% url 'cart:tryon_red' %}">   <button class="circle-btn2"></button></a></p>
+                        </div>
+                    </div>
+{% endif %}
+{% endif %}
+                </div>
+            </div>
+        </div>
+{% endfor %}
+    </div>   
+{% endif %}
+{% include 'shopping/view_review.html' %}
+</div>
+    </div>
+{% endblock %}
