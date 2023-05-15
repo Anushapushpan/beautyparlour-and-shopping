@@ -11,9 +11,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
-import django_heroku
-import dj_database_url
-from decouple import config
+
+
+
 
 
 
@@ -34,7 +34,6 @@ SECRET_KEY = 'django-insecure-mb4-3dnxz)-0*x5x^3nrh4o5nhzacty3xltpf2sbyj&z9mcpxf
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['']
 
 
 # Application definition
@@ -168,7 +167,19 @@ EMAIL_HOST_PASSWORD = 'jtoadgavbmocnkgo'
 KEY = "rzp_test_V8XRJjy8oeI9IU"
 SECRET = "EL7Brk6dgnCTR7Jzgd7UgmVB"
 
+#EMAIL VERIFICATION
 
+# EMAIL_ACTIVE_FIELD = 'is_active'
+# EMAIL_SERVER = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_ADDRESS = 'beautyparlour801@gmail.com'
+# EMAIL_FROM_ADDRESS = 'beautyparlour801@gmail.com'
+# EMAIL_PASSWORD = 'jtoadgavbmocnkgo'
+# EMAIL_MAIL_SUBJECT = 'confirmation mail'
+# EMAIL_MAIL_HTML = 'mail_body.html'
+# EMAIL_MAIL_PLAIN = 'mail_body.txt'
+# EMAIL_PAGE_TEMPLATE = 'confirm._template.html'
+# EMAIL_PAGE_DOMAIN = 'http://mydomain.com/'
 
 
 # Default primary key field type
@@ -176,4 +187,36 @@ SECRET = "EL7Brk6dgnCTR7Jzgd7UgmVB"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-django_heroku.settings(locals())
+#Django Jet Admin
+# JET_THEMES = [
+#     {
+#         'theme': 'default', # theme folder name
+#         'color': '#47bac1', # color of the theme's button in user menu
+#         'title': 'Default' # theme title
+#     },
+#     {
+#         'theme': 'green',
+#         'color': '#44b78b',
+#         'title': 'Green'
+#     },
+#     {
+#         'theme': 'light-green',
+#         'color': '#2faa60',
+#         'title': 'Light Green'
+#     },
+#     {
+#         'theme': 'light-violet',
+#         'color': '#a464c4',
+#         'title': 'Light Violet'
+#     },
+#     {
+#         'theme': 'light-blue',
+#         'color': '#5EADDE',
+#         'title': 'Light Blue'
+#     },
+#     {
+#         'theme': 'light-gray',
+#         'color': '#222',
+#         'title': 'Light Gray'
+#     }
+# ]
