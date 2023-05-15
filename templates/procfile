@@ -1,1 +1,1 @@
-web: gunicorn BeautyParlour.wsgi --log-file -
+web: gunicorn BeautyParlour.wsgi
