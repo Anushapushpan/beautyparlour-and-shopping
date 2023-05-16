@@ -18,9 +18,9 @@ from django.contrib.auth.models import User
 import razorpay
 import xhtml2pdf.pisa as pisa
 
-import cv2
-import dlib
-import numpy as np
+# import cv2
+# import dlib
+# import numpy as np
 
 ################## image preparation ####################
 # loading the mpdel image
@@ -339,336 +339,336 @@ def success(request, razorpay_payment_id):
     cart_items.delete()
     return HttpResponse('Payment success')
 
-
-def tryon(request):
-    if request.user.is_authenticated:
-        c_page = None
-        # Load the face detector and facial landmark detector
-        face_detector = dlib.get_frontal_face_detector()
-        landmark_detector = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
-        # Load the lipstick color image
-        lipstick = cv2.imread("static/images/maroon.jpeg")
-        # Initialize the camera capture object
-        cap = cv2.VideoCapture(0)
-
-        while True:
-            # Capture a frame from the camera
-            ret, frame = cap.read()
-            # Detect the face in the frame
-            faces = face_detector(frame)
-            # Loop over each detected face
-            for face in faces:
-                # Detect the facial landmarks
-                landmarks = landmark_detector(frame, face)
-                # Extract the lip coordinates
-                lip_coords = [(landmarks.part(i).x, landmarks.part(i).y) for i in range(48, 68)]
-                # Draw a mask over the lips
-                mask = np.zeros(frame.shape[:2], dtype=np.uint8)
-                cv2.fillPoly(mask, [np.array(lip_coords)], (255, 255, 255))
-                # Extract the lip region from the frame
-                lip_region = cv2.bitwise_and(frame, frame, mask=mask)
-                # Resize the lipstick image to match the lip region
-                lipstick_resized = cv2.resize(lipstick, (lip_region.shape[1], lip_region.shape[0]))
-                # Use the lipstick color from the center pixel of the lipstick image
-                lipstick_color = lipstick_resized[
-                    round(lipstick_resized.shape[0] / 2), round(lipstick_resized.shape[1] / 2)]
-
-                # Apply the lipstick color to the lip region
-                result = np.zeros_like(lip_region)
-                result[:, :, 0] = lipstick_color[0]
-                result[:, :, 1] = lipstick_color[1]
-                result[:, :, 2] = lipstick_color[2]
-
-                # Draw the lip region with lipstick overlay on the original frame
-                frame[mask != 0] = result[mask != 0]
-
-            # Show the resulting frame
-            cv2.imshow("Virtual try-on", frame)
-
-            # Check for key press
-            key = cv2.waitKey(5) & 0xFF
-            if key == ord('q'):
-                break
-
-        # Release the camera capture object and close all windows
-        cap.release()
-        cv2.destroyAllWindows()
-        return redirect('ShoppingApp:allProdCat')
-
-
-    return redirect('login')
-
-def tryon_pink(request):
-    if request.user.is_authenticated:
-        c_page = None
-        # Load the face detector and facial landmark detector
-        face_detector = dlib.get_frontal_face_detector()
-        landmark_detector = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
-
-        # Load the lipstick color image
-        lipstick = cv2.imread("static/images/rani_pink.jpeg")
-
-        # Extract the color of the center pixel in the lipstick image
-        lipstick_color = lipstick[round(lipstick.shape[0] / 2), round(lipstick.shape[1] / 2)]
-
-        # Initialize the camera capture object
-        cap = cv2.VideoCapture(0)
-
-        while True:
-            # Capture a frame from the camera
-            ret, frame = cap.read()
-
-            # Detect the face in the frame
-            faces = face_detector(frame)
-
-            # Loop over each detected face
-            for face in faces:
-                # Detect the facial landmarks
-                landmarks = landmark_detector(frame, face)
-
-                # Extract the lip coordinates
-                lip_coords = [(landmarks.part(i).x, landmarks.part(i).y) for i in range(48, 68)]
-
-                # Draw a mask over the lips
-                mask = np.zeros(frame.shape[:2], dtype=np.uint8)
-                cv2.fillPoly(mask, [np.array(lip_coords)], (255, 255, 255))
-
-                # Extract the lip region from the frame
-                lip_region = cv2.bitwise_and(frame, frame, mask=mask)
-
-                # Resize the lipstick image to match the lip region
-                lipstick_resized = cv2.resize(lipstick, (lip_region.shape[1], lip_region.shape[0]))
-
-                # Use the lipstick color from the center pixel of the lipstick image
-                lipstick_color = lipstick_resized[
-                    round(lipstick_resized.shape[0] / 2), round(lipstick_resized.shape[1] / 2)]
-
-                # Apply the lipstick color to the lip region
-                result = np.zeros_like(lip_region)
-                result[:, :, 0] = lipstick_color[0]
-                result[:, :, 1] = lipstick_color[1]
-                result[:, :, 2] = lipstick_color[2]
-
-                # Draw the lip region with lipstick overlay on the original frame
-                frame[mask != 0] = result[mask != 0]
-
-            # Show the resulting frame
-            cv2.imshow("Virtual try-on", frame)
-
-            # Check for key press
-            key = cv2.waitKey(5) & 0xFF
-            if key == ord('q'):
-                break
-
-        # Release the camera capture object and close all windows
-        cap.release()
-        cv2.destroyAllWindows()
-        return redirect('ShoppingApp:allProdCat')
-
-    return redirect('login')
-
-
-def tryon_red(request):
-    if request.user.is_authenticated:
-        c_page = None
-        # Load the face detector and facial landmark detector
-        face_detector = dlib.get_frontal_face_detector()
-        landmark_detector = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
-
-        # Load the lipstick color image
-        lipstick = cv2.imread("static/images/red.jpeg")
-
-        # Extract the color of the center pixel in the lipstick image
-        lipstick_color = lipstick[round(lipstick.shape[0] / 2), round(lipstick.shape[1] / 2)]
-
-        # Initialize the camera capture object
-        cap = cv2.VideoCapture(0)
-
-        while True:
-            # Capture a frame from the camera
-            ret, frame = cap.read()
-
-            # Detect the face in the frame
-            faces = face_detector(frame)
-
-            # Loop over each detected face
-            for face in faces:
-                # Detect the facial landmarks
-                landmarks = landmark_detector(frame, face)
-
-                # Extract the lip coordinates
-                lip_coords = [(landmarks.part(i).x, landmarks.part(i).y) for i in range(48, 68)]
-
-                # Draw a mask over the lips
-                mask = np.zeros(frame.shape[:2], dtype=np.uint8)
-                cv2.fillPoly(mask, [np.array(lip_coords)], (255, 255, 255))
-
-                # Extract the lip region from the frame
-                lip_region = cv2.bitwise_and(frame, frame, mask=mask)
-
-                # Resize the lipstick image to match the lip region
-                lipstick_resized = cv2.resize(lipstick, (lip_region.shape[1], lip_region.shape[0]))
-
-                # Use the lipstick color from the center pixel of the lipstick image
-                lipstick_color = lipstick_resized[
-                    round(lipstick_resized.shape[0] / 2), round(lipstick_resized.shape[1] / 2)]
-
-                # Apply the lipstick color to the lip region
-                result = np.zeros_like(lip_region)
-                result[:, :, 0] = lipstick_color[0]
-                result[:, :, 1] = lipstick_color[1]
-                result[:, :, 2] = lipstick_color[2]
-
-                # Draw the lip region with lipstick overlay on the original frame
-                frame[mask != 0] = result[mask != 0]
-
-            # Show the resulting frame
-            cv2.imshow("Virtual try-on", frame)
-
-            # Check for key press
-            key = cv2.waitKey(5) & 0xFF
-            if key == ord('q'):
-                break
-
-        # Release the camera capture object and close all windows
-        cap.release()
-        cv2.destroyAllWindows()
-        return redirect('ShoppingApp:allProdCat')
-
-    return redirect('login')
-
-def tryon_nude_pink(request):
-    if request.user.is_authenticated:
-        # Load the face detector and facial landmark detector
-        face_detector = dlib.get_frontal_face_detector()
-        landmark_detector = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
-
-        # Load the lipstick color image
-        lipstick = cv2.imread("static/images/nude_pink.png")
-
-        # Extract the color of the center pixel in the lipstick image
-        lipstick_color = lipstick[round(lipstick.shape[0] / 2), round(lipstick.shape[1] / 2)]
-
-        # Initialize the camera capture object
-        cap = cv2.VideoCapture(0)
-
-        while True:
-            # Capture a frame from the camera
-            ret, frame = cap.read()
-
-            # Detect the face in the frame
-            faces = face_detector(frame)
-
-            # Loop over each detected face
-            for face in faces:
-                # Detect the facial landmarks
-                landmarks = landmark_detector(frame, face)
-
-                # Extract the lip coordinates
-                lip_coords = [(landmarks.part(i).x, landmarks.part(i).y) for i in range(48, 68)]
-
-                # Draw a mask over the lips
-                mask = np.zeros(frame.shape[:2], dtype=np.uint8)
-                cv2.fillPoly(mask, [np.array(lip_coords)], (255, 255, 255))
-
-                # Extract the lip region from the frame
-                lip_region = cv2.bitwise_and(frame, frame, mask=mask)
-
-                # Resize the lipstick image to match the lip region
-                lipstick_resized = cv2.resize(lipstick, (lip_region.shape[1], lip_region.shape[0]))
-
-                # Use the lipstick color from the center pixel of the lipstick image
-                lipstick_color = lipstick_resized[
-                    round(lipstick_resized.shape[0] / 2), round(lipstick_resized.shape[1] / 2)]
-
-                # Apply the lipstick color to the lip region
-                result = np.zeros_like(lip_region)
-                result[:, :, 0] = lipstick_color[0]
-                result[:, :, 1] = lipstick_color[1]
-                result[:, :, 2] = lipstick_color[2]
-
-                # Draw the lip region with lipstick overlay on the original frame
-                frame[mask != 0] = result[mask != 0]
-
-            # Show the resulting frame
-            cv2.imshow("Virtual try-on", frame)
-
-            # Check for key press
-            key = cv2.waitKey(5) & 0xFF
-            if key == ord('q'):
-                break
-
-        # Release the camera capture object and close all windows
-        cap.release()
-        cv2.destroyAllWindows()
-        return redirect('ShoppingApp:allProdCat')
-
-    return redirect('login')
-
-def virtual_try_on(request):
-    # Load the lipstick color images using OpenCV
-    lipstick_colors = [
-        cv2.imread('static/images/maroon.jpeg'),
-        cv2.imread('static/images/maroon.jpeg'),
-        cv2.imread('static/images/maroon.jpeg'),
-        # add more lipstick colors here
-    ]
-
-    # Initialize the webcam
-    cap = cv2.VideoCapture(0)
-
-    # Set the window size
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-
-    while True:
-        if request.method == 'POST':
-            # Get the selected lipstick color from the request
-            color_index = int(request.POST.get('color_index'))
-
-            # Capture a frame from the webcam
-            _, frame = cap.read()
-
-            # Detect the user's lips using Dlib
-            detector = dlib.get_frontal_face_detector()
-            predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
-            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            rects = detector(gray, 1)
-            landmarks = predictor(gray, rects[0])
-            lips_coords = np.array([(landmarks.part(i).x, landmarks.part(i).y) for i in range(48, 68)])
-
-            # Load the selected lipstick color image using OpenCV
-            lipstick_color = lipstick_colors[color_index]
-
-            # Resize the lipstick color image to fit the user's lips
-            lips_width = lips_coords[:, 0].max() - lips_coords[:, 0].min()
-            lips_height = lips_coords[:, 1].max() - lips_coords[:, 1].min()
-            lipstick_color_resized = cv2.resize(lipstick_color, (lips_width, lips_height))
-
-            # Apply Gaussian blur to the mask
-            mask = np.zeros_like(frame)
-            cv2.fillPoly(mask, [lips_coords], (255, 255, 255))
-            mask = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
-            mask = cv2.GaussianBlur(mask, (11, 11), 0)
-
-            # Apply Gaussian blur to the resized lipstick color image
-            lipstick_color_resized = cv2.GaussianBlur(lipstick_color_resized, (11, 11), 0)
-
-            # Combine the mask and the lipstick color image using bitwise operations
-            mask = cv2.threshold(mask, 1, 255, cv2.THRESH_BINARY)[1]
-            lipstick_applied = cv2.bitwise_and(frame, frame, mask=mask)
-            lipstick_applied = cv2.addWeighted(lipstick_applied, 1, lipstick_color_resized, 0.7, 0)
-
-            # Display the final image on the screen
-            cv2.imshow("Virtual Try-On", lipstick_applied)
-
-        # Check if the user presses the 'q' key to quit the program
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-    # Release the webcam and close the window
-    cap.release()
-    cv2.destroyAllWindows()
-
-    # Render the virtual try-on template
-    return redirect('ShoppingApp:allProdCat')
+#
+# def tryon(request):
+#     if request.user.is_authenticated:
+#         c_page = None
+#         # Load the face detector and facial landmark detector
+#         face_detector = dlib.get_frontal_face_detector()
+#         landmark_detector = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+#         # Load the lipstick color image
+#         lipstick = cv2.imread("static/images/maroon.jpeg")
+#         # Initialize the camera capture object
+#         cap = cv2.VideoCapture(0)
+#
+#         while True:
+#             # Capture a frame from the camera
+#             ret, frame = cap.read()
+#             # Detect the face in the frame
+#             faces = face_detector(frame)
+#             # Loop over each detected face
+#             for face in faces:
+#                 # Detect the facial landmarks
+#                 landmarks = landmark_detector(frame, face)
+#                 # Extract the lip coordinates
+#                 lip_coords = [(landmarks.part(i).x, landmarks.part(i).y) for i in range(48, 68)]
+#                 # Draw a mask over the lips
+#                 mask = np.zeros(frame.shape[:2], dtype=np.uint8)
+#                 cv2.fillPoly(mask, [np.array(lip_coords)], (255, 255, 255))
+#                 # Extract the lip region from the frame
+#                 lip_region = cv2.bitwise_and(frame, frame, mask=mask)
+#                 # Resize the lipstick image to match the lip region
+#                 lipstick_resized = cv2.resize(lipstick, (lip_region.shape[1], lip_region.shape[0]))
+#                 # Use the lipstick color from the center pixel of the lipstick image
+#                 lipstick_color = lipstick_resized[
+#                     round(lipstick_resized.shape[0] / 2), round(lipstick_resized.shape[1] / 2)]
+#
+#                 # Apply the lipstick color to the lip region
+#                 result = np.zeros_like(lip_region)
+#                 result[:, :, 0] = lipstick_color[0]
+#                 result[:, :, 1] = lipstick_color[1]
+#                 result[:, :, 2] = lipstick_color[2]
+#
+#                 # Draw the lip region with lipstick overlay on the original frame
+#                 frame[mask != 0] = result[mask != 0]
+#
+#             # Show the resulting frame
+#             cv2.imshow("Virtual try-on", frame)
+#
+#             # Check for key press
+#             key = cv2.waitKey(5) & 0xFF
+#             if key == ord('q'):
+#                 break
+#
+#         # Release the camera capture object and close all windows
+#         cap.release()
+#         cv2.destroyAllWindows()
+#         return redirect('ShoppingApp:allProdCat')
+#
+#
+#     return redirect('login')
+#
+# def tryon_pink(request):
+#     if request.user.is_authenticated:
+#         c_page = None
+#         # Load the face detector and facial landmark detector
+#         face_detector = dlib.get_frontal_face_detector()
+#         landmark_detector = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+#
+#         # Load the lipstick color image
+#         lipstick = cv2.imread("static/images/rani_pink.jpeg")
+#
+#         # Extract the color of the center pixel in the lipstick image
+#         lipstick_color = lipstick[round(lipstick.shape[0] / 2), round(lipstick.shape[1] / 2)]
+#
+#         # Initialize the camera capture object
+#         cap = cv2.VideoCapture(0)
+#
+#         while True:
+#             # Capture a frame from the camera
+#             ret, frame = cap.read()
+#
+#             # Detect the face in the frame
+#             faces = face_detector(frame)
+#
+#             # Loop over each detected face
+#             for face in faces:
+#                 # Detect the facial landmarks
+#                 landmarks = landmark_detector(frame, face)
+#
+#                 # Extract the lip coordinates
+#                 lip_coords = [(landmarks.part(i).x, landmarks.part(i).y) for i in range(48, 68)]
+#
+#                 # Draw a mask over the lips
+#                 mask = np.zeros(frame.shape[:2], dtype=np.uint8)
+#                 cv2.fillPoly(mask, [np.array(lip_coords)], (255, 255, 255))
+#
+#                 # Extract the lip region from the frame
+#                 lip_region = cv2.bitwise_and(frame, frame, mask=mask)
+#
+#                 # Resize the lipstick image to match the lip region
+#                 lipstick_resized = cv2.resize(lipstick, (lip_region.shape[1], lip_region.shape[0]))
+#
+#                 # Use the lipstick color from the center pixel of the lipstick image
+#                 lipstick_color = lipstick_resized[
+#                     round(lipstick_resized.shape[0] / 2), round(lipstick_resized.shape[1] / 2)]
+#
+#                 # Apply the lipstick color to the lip region
+#                 result = np.zeros_like(lip_region)
+#                 result[:, :, 0] = lipstick_color[0]
+#                 result[:, :, 1] = lipstick_color[1]
+#                 result[:, :, 2] = lipstick_color[2]
+#
+#                 # Draw the lip region with lipstick overlay on the original frame
+#                 frame[mask != 0] = result[mask != 0]
+#
+#             # Show the resulting frame
+#             cv2.imshow("Virtual try-on", frame)
+#
+#             # Check for key press
+#             key = cv2.waitKey(5) & 0xFF
+#             if key == ord('q'):
+#                 break
+#
+#         # Release the camera capture object and close all windows
+#         cap.release()
+#         cv2.destroyAllWindows()
+#         return redirect('ShoppingApp:allProdCat')
+#
+#     return redirect('login')
+#
+#
+# def tryon_red(request):
+#     if request.user.is_authenticated:
+#         c_page = None
+#         # Load the face detector and facial landmark detector
+#         face_detector = dlib.get_frontal_face_detector()
+#         landmark_detector = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+#
+#         # Load the lipstick color image
+#         lipstick = cv2.imread("static/images/red.jpeg")
+#
+#         # Extract the color of the center pixel in the lipstick image
+#         lipstick_color = lipstick[round(lipstick.shape[0] / 2), round(lipstick.shape[1] / 2)]
+#
+#         # Initialize the camera capture object
+#         cap = cv2.VideoCapture(0)
+#
+#         while True:
+#             # Capture a frame from the camera
+#             ret, frame = cap.read()
+#
+#             # Detect the face in the frame
+#             faces = face_detector(frame)
+#
+#             # Loop over each detected face
+#             for face in faces:
+#                 # Detect the facial landmarks
+#                 landmarks = landmark_detector(frame, face)
+#
+#                 # Extract the lip coordinates
+#                 lip_coords = [(landmarks.part(i).x, landmarks.part(i).y) for i in range(48, 68)]
+#
+#                 # Draw a mask over the lips
+#                 mask = np.zeros(frame.shape[:2], dtype=np.uint8)
+#                 cv2.fillPoly(mask, [np.array(lip_coords)], (255, 255, 255))
+#
+#                 # Extract the lip region from the frame
+#                 lip_region = cv2.bitwise_and(frame, frame, mask=mask)
+#
+#                 # Resize the lipstick image to match the lip region
+#                 lipstick_resized = cv2.resize(lipstick, (lip_region.shape[1], lip_region.shape[0]))
+#
+#                 # Use the lipstick color from the center pixel of the lipstick image
+#                 lipstick_color = lipstick_resized[
+#                     round(lipstick_resized.shape[0] / 2), round(lipstick_resized.shape[1] / 2)]
+#
+#                 # Apply the lipstick color to the lip region
+#                 result = np.zeros_like(lip_region)
+#                 result[:, :, 0] = lipstick_color[0]
+#                 result[:, :, 1] = lipstick_color[1]
+#                 result[:, :, 2] = lipstick_color[2]
+#
+#                 # Draw the lip region with lipstick overlay on the original frame
+#                 frame[mask != 0] = result[mask != 0]
+#
+#             # Show the resulting frame
+#             cv2.imshow("Virtual try-on", frame)
+#
+#             # Check for key press
+#             key = cv2.waitKey(5) & 0xFF
+#             if key == ord('q'):
+#                 break
+#
+#         # Release the camera capture object and close all windows
+#         cap.release()
+#         cv2.destroyAllWindows()
+#         return redirect('ShoppingApp:allProdCat')
+#
+#     return redirect('login')
+#
+# def tryon_nude_pink(request):
+#     if request.user.is_authenticated:
+#         # Load the face detector and facial landmark detector
+#         face_detector = dlib.get_frontal_face_detector()
+#         landmark_detector = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+#
+#         # Load the lipstick color image
+#         lipstick = cv2.imread("static/images/nude_pink.png")
+#
+#         # Extract the color of the center pixel in the lipstick image
+#         lipstick_color = lipstick[round(lipstick.shape[0] / 2), round(lipstick.shape[1] / 2)]
+#
+#         # Initialize the camera capture object
+#         cap = cv2.VideoCapture(0)
+#
+#         while True:
+#             # Capture a frame from the camera
+#             ret, frame = cap.read()
+#
+#             # Detect the face in the frame
+#             faces = face_detector(frame)
+#
+#             # Loop over each detected face
+#             for face in faces:
+#                 # Detect the facial landmarks
+#                 landmarks = landmark_detector(frame, face)
+#
+#                 # Extract the lip coordinates
+#                 lip_coords = [(landmarks.part(i).x, landmarks.part(i).y) for i in range(48, 68)]
+#
+#                 # Draw a mask over the lips
+#                 mask = np.zeros(frame.shape[:2], dtype=np.uint8)
+#                 cv2.fillPoly(mask, [np.array(lip_coords)], (255, 255, 255))
+#
+#                 # Extract the lip region from the frame
+#                 lip_region = cv2.bitwise_and(frame, frame, mask=mask)
+#
+#                 # Resize the lipstick image to match the lip region
+#                 lipstick_resized = cv2.resize(lipstick, (lip_region.shape[1], lip_region.shape[0]))
+#
+#                 # Use the lipstick color from the center pixel of the lipstick image
+#                 lipstick_color = lipstick_resized[
+#                     round(lipstick_resized.shape[0] / 2), round(lipstick_resized.shape[1] / 2)]
+#
+#                 # Apply the lipstick color to the lip region
+#                 result = np.zeros_like(lip_region)
+#                 result[:, :, 0] = lipstick_color[0]
+#                 result[:, :, 1] = lipstick_color[1]
+#                 result[:, :, 2] = lipstick_color[2]
+#
+#                 # Draw the lip region with lipstick overlay on the original frame
+#                 frame[mask != 0] = result[mask != 0]
+#
+#             # Show the resulting frame
+#             cv2.imshow("Virtual try-on", frame)
+#
+#             # Check for key press
+#             key = cv2.waitKey(5) & 0xFF
+#             if key == ord('q'):
+#                 break
+#
+#         # Release the camera capture object and close all windows
+#         cap.release()
+#         cv2.destroyAllWindows()
+#         return redirect('ShoppingApp:allProdCat')
+#
+#     return redirect('login')
+#
+# def virtual_try_on(request):
+#     # Load the lipstick color images using OpenCV
+#     lipstick_colors = [
+#         cv2.imread('static/images/maroon.jpeg'),
+#         cv2.imread('static/images/maroon.jpeg'),
+#         cv2.imread('static/images/maroon.jpeg'),
+#         # add more lipstick colors here
+#     ]
+#
+#     # Initialize the webcam
+#     cap = cv2.VideoCapture(0)
+#
+#     # Set the window size
+#     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+#     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+#
+#     while True:
+#         if request.method == 'POST':
+#             # Get the selected lipstick color from the request
+#             color_index = int(request.POST.get('color_index'))
+#
+#             # Capture a frame from the webcam
+#             _, frame = cap.read()
+#
+#             # Detect the user's lips using Dlib
+#             detector = dlib.get_frontal_face_detector()
+#             predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
+#             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+#             rects = detector(gray, 1)
+#             landmarks = predictor(gray, rects[0])
+#             lips_coords = np.array([(landmarks.part(i).x, landmarks.part(i).y) for i in range(48, 68)])
+#
+#             # Load the selected lipstick color image using OpenCV
+#             lipstick_color = lipstick_colors[color_index]
+#
+#             # Resize the lipstick color image to fit the user's lips
+#             lips_width = lips_coords[:, 0].max() - lips_coords[:, 0].min()
+#             lips_height = lips_coords[:, 1].max() - lips_coords[:, 1].min()
+#             lipstick_color_resized = cv2.resize(lipstick_color, (lips_width, lips_height))
+#
+#             # Apply Gaussian blur to the mask
+#             mask = np.zeros_like(frame)
+#             cv2.fillPoly(mask, [lips_coords], (255, 255, 255))
+#             mask = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
+#             mask = cv2.GaussianBlur(mask, (11, 11), 0)
+#
+#             # Apply Gaussian blur to the resized lipstick color image
+#             lipstick_color_resized = cv2.GaussianBlur(lipstick_color_resized, (11, 11), 0)
+#
+#             # Combine the mask and the lipstick color image using bitwise operations
+#             mask = cv2.threshold(mask, 1, 255, cv2.THRESH_BINARY)[1]
+#             lipstick_applied = cv2.bitwise_and(frame, frame, mask=mask)
+#             lipstick_applied = cv2.addWeighted(lipstick_applied, 1, lipstick_color_resized, 0.7, 0)
+#
+#             # Display the final image on the screen
+#             cv2.imshow("Virtual Try-On", lipstick_applied)
+#
+#         # Check if the user presses the 'q' key to quit the program
+#         if cv2.waitKey(1) & 0xFF == ord('q'):
+#             break
+#
+#     # Release the webcam and close the window
+#     cap.release()
+#     cv2.destroyAllWindows()
+#
+#     # Render the virtual try-on template
+#     return redirect('ShoppingApp:allProdCat')
