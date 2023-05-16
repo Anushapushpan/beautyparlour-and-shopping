@@ -7,7 +7,7 @@ attrs==22.2.0
 beautifulsoup4==4.11.2
 bidict==0.22.1
 Brotli==1.0.9
-cap==0.1.4
+cap==0.0.114
 capture==0.1
 certifi==2022.12.7
 cffi==1.15.1
