@@ -1,1 +1,1 @@
-web: gunicorn ParlourApp.wsgi
+web: gunicorn BeautyParlour.wsgi
