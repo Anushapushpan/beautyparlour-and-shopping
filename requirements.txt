@@ -29,7 +29,7 @@ django-heroku==0.3.1
 django-jazzmin==2.6.0
 django-registration==3.3
 django-scheduler==0.10.1
-dlib @ https://github.com/jloh02/dlib/releases/download/v19.22/dlib-19.22.99-cp310-cp310-win_amd64.whl
+dlib
 exceptiongroup==1.1.1
 flatbuffers==23.1.21
 fonttools==4.38.0
