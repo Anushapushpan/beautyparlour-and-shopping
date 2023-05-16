@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils import timezone
-
+from django.views.decorators.csrf import csrf_protect
 from BeautyParlour import settings
 from .models import Appointment, Category, Service, Gallery
 from .forms import AppointmentForm
