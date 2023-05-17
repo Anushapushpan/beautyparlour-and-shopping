@@ -88,7 +88,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         messages.success(request, 'Your account has been activated. Please log in.')
-        return redirect(reverse('login'))
+        return redirect(reverse('https://beautyparlour-and-shopping-production.up.railway.app/login'))
     else:
         return HttpResponse('Activation link is invalid.')
 
@@ -102,10 +102,12 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             messages.success(request,"Welcome")
-            return redirect("user")
+            if user.is_admin:
+                return redirect('/admin')
+            return redirect("https://beautyparlour-and-shopping-production.up.railway.app/user")
         else:
             messages.error(request, "Invalid credentials!!!")
-            return redirect('login')
+            return redirect('https://beautyparlour-and-shopping-production.up.railway.app/login')
     return render(request, "login.html")
 
 
@@ -121,7 +123,7 @@ def user(request):
         return render(request, "user.html",{
             'info': apptmnt_info,
         })
-    return redirect('login')
+    return redirect('https://beautyparlour-and-shopping-production.up.railway.app/login')
 
 from django.contrib.auth.views import PasswordResetView
 
