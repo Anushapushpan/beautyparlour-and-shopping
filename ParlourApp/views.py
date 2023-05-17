@@ -70,7 +70,7 @@ def register(request):
                 )
                 email.send()
                 messages.success(request, "An email has been sent to your email address. Please verify your email to activate your account.")
-                return redirect('login')
+                return redirect('https://beautyparlour-and-shopping-production.up.railway.app/login')
         else:
             print("password not match")
             messages.error(request, "Password incorrect")
@@ -220,7 +220,7 @@ def appointment(request):
         else:
             form = AppointmentForm
         return render(request, 'appointment.html', {'form': form})
-    return redirect('login')
+    return redirect('https://beautyparlour-and-shopping-production.up.railway.app/login')
 
 
 
