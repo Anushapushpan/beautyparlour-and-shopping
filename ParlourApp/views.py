@@ -101,9 +101,9 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            messages.success(request,"Welcome")
             if user.is_admin:
-                return redirect('/admin')
+                return redirect('https://beautyparlour-and-shopping-production.up.railway.app/admin')
+            messages.success(request,"Welcome")
             return redirect("https://beautyparlour-and-shopping-production.up.railway.app/user")
         else:
             messages.error(request, "Invalid credentials!!!")
