@@ -45,55 +45,55 @@
             <ul>
               <li class="dropdown"><a href="Bridal"><span>Bridal</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
-                  <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/Bridal">Wedding makeover</a></li>
-                  <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/Bridal">Pre-wedding grooming services</a></li>
-                  <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/Bridal">Exclusive bridal packages</a></li>
+                  <li><a href="Bridal">Wedding makeover</a></li>
+                  <li><a href="Bridal">Pre-wedding grooming services</a></li>
+                  <li><a href="Bridal">Exclusive bridal packages</a></li>
                 </ul>
               </li>
               <li class="dropdown"><a href="Hair"><span>Hair</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
-                  <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/Hair">Hair cutting</a></li>
-                  <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/Hair">Permanent blow-dry</a></li>
-                  <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/Hair">Hair coloring</a></li>
-                  <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/Hair">Hair smoothening</a></li>
+                  <li><a href="Hair">Hair cutting</a></li>
+                  <li><a href="Hair">Permanent blow-dry</a></li>
+                  <li><a href="Hair">Hair coloring</a></li>
+                  <li><a href="Hair">Hair smoothening</a></li>
                 </ul>
               </li>
               <li class="dropdown"><a href="Skin"><span>Skin</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
-                  <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/Skin">Threading</a></li>
-                  <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/Skin">Face mask</a></li>
-                  <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/Skin">Cleanup</a></li>
-                  <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/Skin">Facials</a></li>
+                  <li><a href="Skin">Threading</a></li>
+                  <li><a href="Skin">Face mask</a></li>
+                  <li><a href="Skin">Cleanup</a></li>
+                  <li><a href="Skin">Facials</a></li>
                 </ul>
               </li>
               <li class="dropdown"><a href="Wax"><span>Wax</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
-                  <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/Wax">Facial waxing</a></li>
-                  <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/Wax">Body waxing</a></li>
+                  <li><a href="Wax">Facial waxing</a></li>
+                  <li><a href="Wax">Body waxing</a></li>
                 </ul>
               </li>
               <li class="dropdown"><a href="Makeover"><span>Makeover</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
-                  <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/Makeover">Airbrush Makeup</a></li>
-                  <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/Makeover">HD Makeup</a></li>
-                  <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/Makeover">Hair Makeover</a></li>
+                  <li><a href="Makeover">Airbrush Makeup</a></li>
+                  <li><a href="Makeover">HD Makeup</a></li>
+                  <li><a href="Makeover">Hair Makeover</a></li>
                 </ul>
               </li>
             </ul>
           </li>
-          <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/contact" class="{% if request.resolver_match.url_name == 'contact' %} active {% endif %}">Contact</a></li>
-          <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/gallery">Gallery</a></li>
+          <li><a href="contact" class="{% if request.resolver_match.url_name == 'contact' %} active {% endif %}">Contact</a></li>
+          <li><a href="gallery">Gallery</a></li>
           {% if user.is_authenticated %}
-          <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/appointment" class="{% if request.resolver_match.url_name == 'appointment' %} active {% endif %}">Book an Appointment</a></li>
+          <li><a href="/appointment" class="{% if request.resolver_match.url_name == 'appointment' %} active {% endif %}">Book an Appointment</a></li>
           <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="{% static 'images/user.png' %}" alt="mdo" width="32" height="32" class="rounded-circle"> {{user.first_name}}
           </a>
           <ul class="dropdown-menu text-small">
 
-            <li><a class="dropdown-item"   href="https://beautyparlour-and-shopping-production.up.railway.app/appointment_info">Appointment Review</a></li>
-            <li><a class="dropdown-item" href="https://beautyparlour-and-shopping-production.up.railway.app/user">Profile</a></li>
-            <li><a class="dropdown-item" href="https://beautyparlour-and-shopping-production.up.railway.app/logout">Logout</a></li>
+            <li><a class="dropdown-item"   href="/appointment_info">Appointment Review</a></li>
+            <li><a class="dropdown-item" href="user">Profile</a></li>
+            <li><a class="dropdown-item" href="logout">Logout</a></li>
           </ul>
           </div>
           {% if item_count > 0 %}
@@ -112,17 +112,17 @@
     </font></b></a>
         </li>
           {% endif %}
-          <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/ShoppingApp/shopping/shopping" class="getstarted">Shop Now</a></li>
+          <li><a href="ShoppingApp/shopping/shopping" class="getstarted">Shop Now</a></li>
           {% else %}
-          <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/register" class="{% if request.resolver_match.url_name == 'register' %} active {% endif %}">Register</a></li>
+          <li><a href="/register" class="{% if request.resolver_match.url_name == 'register' %} active {% endif %}">Register</a></li>
           <li class="dropdown"><a href="#" class="{% if request.resolver_match.url_name == 'login' %} active {% endif %}"><span>Login</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li class="dropdown"><a href="https://beautyparlour-and-shopping-production.up.railway.app/login"><span>User</span> </a>
-                <li class="dropdown"><a href="https://beautyparlour-and-shopping-production.up.railway.app/admin/login/?next=/admin/"><span>Admin</span> </a>
+              <li class="dropdown"><a href="/login"><span>User</span> </a>
+                <li class="dropdown"><a href="admin/login/?next=/admin/"><span>Admin</span> </a>
                 </ul>
               </li>
-          <li><a href="https://beautyparlour-and-shopping-production.up.railway.app//login">Book an Appointment</a></li>
-          <li><a href="https://beautyparlour-and-shopping-production.up.railway.app/ShoppingApp/shopping/shopping" class="getstarted">Shop Now</a></li>
+          <li><a href="/login">Book an Appointment</a></li>
+          <li><a href="ShoppingApp/shopping/shopping" class="getstarted">Shop Now</a></li>
           {% endif %}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>

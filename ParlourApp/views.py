@@ -220,7 +220,7 @@ def appointment(request):
         else:
             form = AppointmentForm
         return render(request, 'appointment.html', {'form': form})
-    return redirect('https://beautyparlour-and-shopping-production.up.railway.app/login')
+    return redirect('/login')
 
 
 

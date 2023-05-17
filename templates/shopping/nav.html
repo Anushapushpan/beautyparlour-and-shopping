@@ -72,17 +72,17 @@
               <img src="{% static 'images/user.png' %}" alt="mdo" width="32" height="32" class="rounded-circle"> {{user.first_name}}
             </a>
             <ul class="dropdown-menu text-small">
-              <li><a class="dropdown-item" href="https://beautyparlour-and-shopping-production.up.railway.app//appointment_info">Appointment Review</a></li>
-              <li><a class="dropdown-item" href="https://beautyparlour-and-shopping-production.up.railway.app//user">Profile</a></li>
-              <li><a class="dropdown-item" href="https://beautyparlour-and-shopping-production.up.railway.app//logout">Logout</a></li>
+              <li><a class="dropdown-item" href="/appointment_info">Appointment Review</a></li>
+              <li><a class="dropdown-item" href="/user">Profile</a></li>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
             </ul>
           </div>
           {% else %}
-          <li><a href="https://beautyparlour-and-shopping-production.up.railway.app//register">Register</a></li>
+          <li><a href="/register">Register</a></li>
           <li class="dropdown"><a href="#"><span>Login</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-                <li class="dropdown"><a href="https://beautyparlour-and-shopping-production.up.railway.app//login"><span>User</span> </a>
-                <li class="dropdown"><a href="https://beautyparlour-and-shopping-production.up.railway.app/admin/login/?next=/admin/"><span>Admin</span> </a>
+                <li class="dropdown"><a href="/login"><span>User</span> </a>
+                <li class="dropdown"><a href="/admin/login/?next=/admin/"><span>Admin</span> </a>
             </ul>
           </li>
           <li><a href="/login" >Book an Appointment</a></li>
