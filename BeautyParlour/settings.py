@@ -103,7 +103,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'muVMoLTQmvOa3cmpaHZe',
         'PORT': 8074,
-        'HOST': 'containers-us-west-105.railway.app'
+        'HOST': 'containers-us-west-105.railway.app',
     }
 }
 
