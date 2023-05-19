@@ -69,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 
@@ -95,17 +96,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'BeautyParlour.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_beautyparlour',
+        'NAME': 'railway',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'muVMoLTQmvOa3cmpaHZe',
+        'PORT': 8074,
+        'HOST': 'containers-us-west-105.railway.app',
     }
 }
+
 
 
 # Password validation

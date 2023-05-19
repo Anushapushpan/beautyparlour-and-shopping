@@ -84,15 +84,15 @@
           <li><a href="contact" class="{% if request.resolver_match.url_name == 'contact' %} active {% endif %}">Contact</a></li>
           <li><a href="gallery">Gallery</a></li>
           {% if user.is_authenticated %}
-          <li><a href="appointment" class="{% if request.resolver_match.url_name == 'appointment' %} active {% endif %}">Book an Appointment</a></li>
+          <li><a href="/appointment" class="{% if request.resolver_match.url_name == 'appointment' %} active {% endif %}">Book an Appointment</a></li>
           <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="{% static 'images/user.png' %}" alt="mdo" width="32" height="32" class="rounded-circle"> {{user.first_name}}
           </a>
           <ul class="dropdown-menu text-small">
 
-            <li><a class="dropdown-item"   href="appointment_info">Appointment Review</a></li>
-            <li><a class="dropdown-item" href="/user">Profile</a></li>
+            <li><a class="dropdown-item"   href="/appointment_info">Appointment Review</a></li>
+            <li><a class="dropdown-item" href="user">Profile</a></li>
             <li><a class="dropdown-item" href="logout">Logout</a></li>
           </ul>
           </div>

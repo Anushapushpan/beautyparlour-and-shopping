@@ -83,18 +83,18 @@
 {% else %}
 
 <a class="button" href="{% url 'cart:add_cart' product.id %}">Add to Cart</a>
-{% if product.is_tryon_eligible %}
-  <a class="button" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    <i class="fa fa-camera"></i> &nbsp;Try On
-  </a>
-  <div class="collapse" id="collapseExample">
-    <div class="card card-body">
-    <p><a href="{% url 'cart:tryon' %}"><button class="circle-btn" ></button> &nbsp;</a>
-    <a href="{% url 'cart:tryon_pink' %}"><button class="circle-btn1"></button> </a>&nbsp;
-    <a href="{% url 'cart:tryon_red' %}">   <button class="circle-btn2"></button></a></p>
-    </div>
-  </div>
-{% endif %}
+<!--{% if product.is_tryon_eligible %}-->
+<!--  <a class="button" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">-->
+<!--    <i class="fa fa-camera"></i> &nbsp;Try On-->
+<!--  </a>-->
+<!--  <div class="collapse" id="collapseExample">-->
+<!--    <div class="card card-body">-->
+<!--    <p><a href="{% url 'cart:tryon' %}"><button class="circle-btn" ></button> &nbsp;</a>-->
+<!--    <a href="{% url 'cart:tryon_pink' %}"><button class="circle-btn1"></button> </a>&nbsp;-->
+<!--    <a href="{% url 'cart:tryon_red' %}">   <button class="circle-btn2"></button></a></p>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--{% endif %}-->
 {% endif %}
     </div>
     </div>
