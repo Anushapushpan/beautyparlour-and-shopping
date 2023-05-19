@@ -36,6 +36,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['beautyparlourandshopping-production.up.railway.app']
 CSRF_TRUSTED_ORIGINS = ['https://beautyparlourandshopping-production.up.railway.app/']
 
+
 # Application definition
 
 INSTALLED_APPS = [

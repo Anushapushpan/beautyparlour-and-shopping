@@ -56,7 +56,7 @@ def register(request):
                 activation_link = activate_url
                 current_site = get_current_site(request)
                 mail_subject = 'Activate your account.'
-                message = render_to_string('https://beautyparlourandshopping-production.up.railway.app/acc_active_email.html', {
+                message = render_to_string('acc_active_email.html', {
                     'user': user,
                     'domain': current_site.domain,
                     'activation_link': activation_link,
@@ -75,7 +75,7 @@ def register(request):
             print("password not match")
             messages.error(request, "Password incorrect")
             return redirect('https://beautyparlourandshopping-production.up.railway.app/register')
-    return render(request, "https://beautyparlourandshopping-production.up.railway.app/register.html")
+    return render(request, "register.html")
 
 def activate(request, uidb64, token):
     try:
@@ -108,7 +108,7 @@ def login(request):
         else:
             messages.error(request, "Invalid credentials!!!")
             return redirect('https://beautyparlourandshopping-production.up.railway.app/login')
-    return render(request, "https://beautyparlourandshopping-production.up.railway.app/login.html")
+    return render(request, "login.html")
 
 
 def logout(request):
