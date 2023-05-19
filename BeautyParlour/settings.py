@@ -33,7 +33,7 @@ SECRET_KEY = 'django-insecure-mb4-3dnxz)-0*x5x^3nrh4o5nhzacty3xltpf2sbyj&z9mcpxf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['beautyparlourandshopping-production.up.railway.app']
 CSRF_TRUSTED_ORIGINS = ['https://beautyparlourandshopping-production.up.railway.app/']
 
 # Application definition
