@@ -100,9 +100,11 @@ WSGI_APPLICATION = 'BeautyParlour.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_beautyparlour',
+        'NAME': 'railway',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'muVMoLTQmvOa3cmpaHZe',
+        'PORT': 8074,
+        'HOST': 'containers-us-west-105.railway.app',
     }
 }
 
