@@ -101,9 +101,9 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            if user.is_admin:
-                return redirect('/admin')
-            messages.success(request,"Welcome")
+            if user.is_superuser:
+                return redirect('/admin/')
+            messages.success(request, "Welcome")
             return redirect("/user")
         else:
             messages.error(request, "Invalid credentials!!!")

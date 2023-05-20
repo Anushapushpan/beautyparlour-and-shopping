@@ -115,12 +115,8 @@
           <li><a href="ShoppingApp/shopping/shopping" class="getstarted">Shop Now</a></li>
           {% else %}
           <li><a href="/register" class="{% if request.resolver_match.url_name == 'register' %} active {% endif %}">Register</a></li>
-          <li class="dropdown"><a href="#" class="{% if request.resolver_match.url_name == 'login' %} active {% endif %}"><span>Login</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li class="dropdown"><a href="/login"><span>User</span> </a>
-                <li class="dropdown"><a href="admin/login/?next=/admin/"><span>Admin</span> </a>
-                </ul>
-              </li>
+          <li><a href="/login" class="{% if request.resolver_match.url_name == 'login' %} active {% endif %}">Login</a></li>
+
           <li><a href="/login">Book an Appointment</a></li>
           <li><a href="ShoppingApp/shopping/shopping" class="getstarted">Shop Now</a></li>
           {% endif %}
