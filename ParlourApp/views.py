@@ -35,10 +35,10 @@ def register(request):
         if password == cpassword:
             if User.objects.filter(username=username).exists():
                 messages.info(request, "Username Already Taken")
-                return redirect('https://beautyparlourandshopping-production.up.railway.app/register')
+                return redirect('/register')
             elif User.objects.filter(email=email).exists():
                 messages.info(request, "Email Already Taken")
-                return redirect('https://beautyparlourandshopping-production.up.railway.app/register')
+                return redirect('/register')
             else:
                 user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,
                                                 email=email,
@@ -70,11 +70,11 @@ def register(request):
                 )
                 email.send()
                 messages.success(request, "An email has been sent to your email address. Please verify your email to activate your account.")
-                return redirect('https://beautyparlourandshopping-production.up.railway.app/login')
+                return redirect('/login')
         else:
             print("password not match")
             messages.error(request, "Password incorrect")
-            return redirect('https://beautyparlourandshopping-production.up.railway.app/register')
+            return redirect('/register')
     return render(request, "register.html")
 
 def activate(request, uidb64, token):
@@ -88,13 +88,13 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         messages.success(request, 'Your account has been activated. Please log in.')
-        return redirect(reverse('https://beautyparlourandshopping-production.up.railway.app/login'))
+        return redirect(reverse('/login'))
     else:
         return HttpResponse('Activation link is invalid.')
 
 def login(request):
     if request.user.is_authenticated:
-        return redirect('https://beautyparlourandshopping-production.up.railway.app/')
+        return redirect('/')
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -102,12 +102,12 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             if user.is_admin:
-                return redirect('https://beautyparlourandshopping-production.up.railway.app/admin')
+                return redirect('/admin')
             messages.success(request,"Welcome")
-            return redirect("https://beautyparlourandshopping-production.up.railway.app/user")
+            return redirect("/user")
         else:
             messages.error(request, "Invalid credentials!!!")
-            return redirect('https://beautyparlourandshopping-production.up.railway.app/login')
+            return redirect('/login')
     return render(request, "login.html")
 
 
