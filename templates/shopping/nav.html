@@ -72,9 +72,15 @@
               <img src="{% static 'images/user.png' %}" alt="mdo" width="32" height="32" class="rounded-circle"> {{user.first_name}}
             </a>
             <ul class="dropdown-menu text-small">
-              <li><a class="dropdown-item" href="/appointment_info">Appointment Review</a></li>
-              <li><a class="dropdown-item" href="/user">Profile</a></li>
-              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+              {% if user.is_superuser %}
+            <li><a class="dropdown-item"   href="/admin/">Dashboard</a></li>
+            <li><a class="dropdown-item" href="user">Profile</a></li>
+            <li><a class="dropdown-item" href="logout">Logout</a></li>
+            {% else %}
+            <li><a class="dropdown-item"   href="/appointment_info">Appointment Review</a></li>
+            <li><a class="dropdown-item" href="user">Profile</a></li>
+            <li><a class="dropdown-item" href="logout">Logout</a></li>
+            {% endif %}
             </ul>
           </div>
           {% else %}
