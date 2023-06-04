@@ -9,6 +9,7 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import get_template
 from django.urls import reverse
+from django.views.decorators.cache import cache_control
 
 import cart
 from ShoppingApp.models import Product
@@ -65,7 +66,7 @@ def add_cart(request, product_id):
         return redirect('cart:cart_detail')
     return redirect('login')
 
-
+@cache_control(private=True, max_age=0, no_cache=True, no_store=True, must_revalidate=True)
 def cart_detail(request, total=0, counter=0, cart_items=None, price=None):
     original_price=0
     saving=0
@@ -94,6 +95,7 @@ def cart_detail(request, total=0, counter=0, cart_items=None, price=None):
 
 
 from django.conf import settings
+@cache_control(private=True, max_age=0, no_cache=True, no_store=True, must_revalidate=True)
 def checkout(request, total=0, counter=0, cart_items=None):
     userprofile = None  # Initialize with default value
     price = 0

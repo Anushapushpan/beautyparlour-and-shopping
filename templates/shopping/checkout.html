@@ -32,7 +32,7 @@
 </div></div>
 {% else %}
 <div class="container my-3">
-    <form action="{% url 'cart:placeorder' %}" method="post" id="myForm">
+    <form action="{% url 'cart:placeorder' %}" method="post" onsubmit="return Val()" id="myForm">
         {% csrf_token %}
     <div class="row">
         <div class="col-md-7">
@@ -43,39 +43,48 @@
                     <div class="row checkoutform">
                         <div class="col-md-6">
                         <label>First name</label>
-                        <input type="text" required value="{{ request.user.first_name }}" class="form-control" name="fname" placeholder="Enter First Name">
+                        <input type="text" required value="{{ request.user.first_name }}" id="fname" class="form-control" name="fname" placeholder="Enter First Name" onkeyup="return Validate()">
+                        <span id="msg1"></span>
                         </div>
                         <div class="col-md-6">
                         <label>Last name</label>
-                        <input type="text" required value="{{ request.user.last_name }}" class="form-control" name="lname" placeholder="Enter Last Name">
+                        <input type="text" required value="{{ request.user.last_name }}" id="lname" class="form-control" name="lname" placeholder="Enter Last Name" onkeyup="return Validatelname()">
+                        <span id="msg2"></span>
                         </div>
                         <div class="col-md-6 mt-2">
                         <label>Email</label>
-                        <input type="text" required value="{{ request.user.email }}" class="form-control" name="email" placeholder="Enter Email">
+                        <input type="text" required value="{{ request.user.email }}" class="form-control" id="email" name="email" oninput="validateEmail()" placeholder="Enter Email" onkeyup="return ValidateEmail()">
+                        <span id="emailer"></span>
                         </div>
                         <div class="col-md-6 mt-2">
                         <label>Mobile </label>
-                        <input type="text" required value="{{ userprofile.phone }}" class="form-control" name="phone" placeholder="Enter Mobile Number">
+                        <input type="text" required value="{{ userprofile.phone }}" class="form-control" id="phone" name="phone" placeholder="Enter Mobile Number" onkeyup="return Validatephone()">
+                        <span id="msg3"></span>
                         </div>
                         <div class="col-md-12 mt-2">
                         <label>Address</label>
-                            <textarea required class="form-control" name="address" placeholder="Enter Address">{{ userprofile.address }}</textarea>
+                            <textarea required class="form-control" id="address" name="address" placeholder="Enter Address in the format-House name, Street name" onkeyup="return Validateaddress()">{{ userprofile.address }}</textarea>
+                        <span id="msg4"></span>
                         </div>
                         <div class="col-md-6 mt-2">
                         <label>City</label>
-                        <input type="text" required value="{{ userprofile.city }}" class="form-control" name="city" placeholder="Enter City">
+                        <input type="text" id="city" required value="{{ userprofile.city }}" class="form-control" name="city" placeholder="Enter City" onkeyup="return Validatecity()">
+                        <span id="msg5"></span>
                         </div>
                         <div class="col-md-6 mt-2">
                         <label>State</label>
-                        <input type="text" required value="{{ userprofile.state }}" class="form-control" name="state" placeholder="Enter State">
+                        <input type="text" id="state" required value="{{ userprofile.state }}" class="form-control" name="state" placeholder="Enter State" onkeyup="return Validatestate()">
+                        <span id="msg6"></span>
                         </div>
                         <div class="col-md-6 mt-2">
                         <label>Country</label>
-                        <input type="text" required value="{{ userprofile.country }}" class="form-control" name="country" placeholder="Enter Country">
+                        <input type="text" id ="country" required value="{{ userprofile.country }}" class="form-control" name="country" placeholder="Enter Country" onkeyup="return Validatecountry()">
+                        <span id="msg7"></span>
                         </div>
                         <div class="col-md-6 mt-2">
                         <label>Pincode</label>
-                        <input type="text" required value="{{ userprofile.pincode }}" class="form-control" name="pincode" placeholder="Enter Pincode">
+                        <input type="text" id="pincode" required value="{{ userprofile.pincode }}" class="form-control" name="pincode" placeholder="Enter Pincode" onkeyup="return Validatepincode()">
+                        <span id="msg8"></span>
                         </div>
                     </div>
             </div>
@@ -137,6 +146,258 @@
     </form>
 </div>
 </div>
+<script>
+    function Validate()
+			{
+			var val = document.getElementById('fname').value;
+			if (!val.match(/^[A-Za-z ]*$/))
+			{
+			  document.getElementById('msg1').innerHTML="Only alphabets are allowed";
+					document.getElementById('fname').value = val;
+					document.getElementById('fname').style.color = "red";
+				   document.getElementById('contact_section input').style.border = "red";
+					  return false;
+					 flag=1;
+			}
+			if(val.length<3||val.length>10){
+			  document.getElementById('msg1').innerHTML="Between 3 to 10 characters";
+					document.getElementById('fname').value = val;
+
+
+				document.getElementById('fname').style.color = "red";
+					  return false;
+
+			}
+			else{
+
+
+			  document.getElementById('msg1').innerHTML=" ";
+			  document.getElementById('fname').style.color = "green";
+			 //return true;
+			}
+		  }
+
+		  function Validatelname()
+			{
+			var val = document.getElementById('lname').value;
+			if (!val.match(/^[A-Za-z ]*$/))
+			{
+			  document.getElementById('msg2').innerHTML="Only alphabets are allowed";
+					document.getElementById('lname').value = val;
+					document.getElementById('lname').style.color = "red";
+				   document.getElementById('contact_section input').style.border = "red";
+					  return false;
+					 flag=1;
+			}
+			if(val.length<3||val.length>10){
+			  document.getElementById('msg2').innerHTML="Between 3 to 10 characters";
+					document.getElementById('lname').value = val;
+
+
+				document.getElementById('lname').style.color = "red";
+					  return false;
+
+			}
+			else{
+
+
+			  document.getElementById('msg2').innerHTML=" ";
+			  document.getElementById('lname').style.color = "green";
+			 //return true;
+			}
+		  }
+           function ValidateEmail()
+			{
+
+			  var email=document.getElementById('email').value;
+			  var mailformat =/^([a-zA-Z0-9\._]+)@([a-zA-Z0-9])+.([a-z]+)(.[a-z]+)?$/
+			 if(email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+
+			  document.getElementById('emailer').innerHTML=" ";
+			  document.getElementById('email').style.color = "green";
+
+			  }
+			  else{
+			 document.getElementById('emailer').innerHTML="Please enter a valid Email";
+				document.getElementById('email').value = email;
+					document.getElementById('email').style.color = "red";
+			  return false;
+
+			  }}
+            function Validatephone()
+			{
+			var val = document.getElementById('phone').value;
+			if (!val.match(/^[1-9 ]*$/))
+			{
+			  document.getElementById('msg3').innerHTML="Only Numbers are allowed";
+					document.getElementById('phone').value = val;
+					document.getElementById('phone').style.color = "red";
+				   document.getElementById('contact_section input').style.border = "red";
+					  return false;
+					 flag=1;
+			}
+			if(val.length<10||val.length>10){
+			  document.getElementById('msg3').innerHTML="Only 10 digits are allowed";
+					document.getElementById('phone').value = val;
+
+
+				document.getElementById('phone').style.color = "red";
+					  return false;
+
+			}
+			else{
+
+
+			  document.getElementById('msg3').innerHTML=" ";
+			  document.getElementById('phone').style.color = "green";
+			 //return true;
+			}
+		  }
+		  function Validateaddress()
+			{
+			var val = document.getElementById('address').value;
+			if (!val.match(/^[A-Za-z, ]*$/))
+			{
+			  document.getElementById('msg4').innerHTML="Only alphabets and , are allowed";
+					document.getElementById('address').value = val;
+					document.getElementById('address').style.color = "red";
+				   document.getElementById('contact_section input').style.border = "red";
+					  return false;
+					 flag=1;
+			}
+			if(val.length<7||val.length>50){
+			  document.getElementById('msg4').innerHTML="Between 7 to 10 characters";
+					document.getElementById('address').value = val;
+				document.getElementById('address').style.color = "red";
+					  return false;
+			}
+			else{
+			  document.getElementById('msg4').innerHTML=" ";
+			  document.getElementById('address').style.color = "green";
+			 //return true;
+			}
+		  }
+		  function Validatecity()
+			{
+			var val = document.getElementById('city').value;
+			if (!val.match(/^[A-Za-z, ]*$/))
+			{
+			  document.getElementById('msg5').innerHTML="Only alphabets are allowed";
+					document.getElementById('city').value = val;
+					document.getElementById('city').style.color = "red";
+				   document.getElementById('contact_section input').style.border = "red";
+					  return false;
+					 flag=1;
+			}
+			if(val.length<3||val.length>50){
+			  document.getElementById('msg5').innerHTML="Between 3 to 20 characters";
+					document.getElementById('city').value = val;
+				document.getElementById('city').style.color = "red";
+					  return false;
+			}
+			else{
+			  document.getElementById('msg5').innerHTML=" ";
+			  document.getElementById('city').style.color = "green";
+			 //return true;
+			}
+		  }
+		  function Validatestate()
+			{
+			var val = document.getElementById('state').value;
+			if (!val.match(/^[A-Za-z, ]*$/))
+			{
+			  document.getElementById('msg6').innerHTML="Only alphabets are allowed";
+					document.getElementById('state').value = val;
+					document.getElementById('state').style.color = "red";
+				   document.getElementById('contact_section input').style.border = "red";
+					  return false;
+					 flag=1;
+			}
+			if(val.length<3||val.length>50){
+			  document.getElementById('msg6').innerHTML="Between 3 to 20 characters";
+					document.getElementById('state').value = val;
+				document.getElementById('state').style.color = "red";
+					  return false;
+			}
+			else{
+			  document.getElementById('msg6').innerHTML=" ";
+			  document.getElementById('state').style.color = "green";
+			 //return true;
+			}
+		  }
+		   function Validatecountry()
+			{
+			var val = document.getElementById('country').value;
+			if (!val.match(/^[A-Za-z, ]*$/))
+			{
+			  document.getElementById('msg7').innerHTML="Only alphabets are allowed";
+					document.getElementById('country').value = val;
+					document.getElementById('country').style.color = "red";
+				   document.getElementById('contact_section input').style.border = "red";
+					  return false;
+					 flag=1;
+			}
+			if(val.length<3||val.length>50){
+			  document.getElementById('msg7').innerHTML="Between 3 to 20 characters";
+					document.getElementById('country').value = val;
+				document.getElementById('country').style.color = "red";
+					  return false;
+			}
+			else{
+			  document.getElementById('msg7').innerHTML=" ";
+			  document.getElementById('country').style.color = "green";
+			 //return true;
+			}
+		  }
+
+		  function Validatepincode()
+			{
+			var val = document.getElementById('pincode').value;
+			if (!val.match(/^[A-Za-z, ]*$/))
+			{
+			  document.getElementById('msg8').innerHTML="Only alphabets are allowed";
+					document.getElementById('pincode').value = val;
+					document.getElementById('pincode').style.color = "red";
+				   document.getElementById('contact_section input').style.border = "red";
+					  return false;
+					 flag=1;
+			}
+			if(val.length<3||val.length>50){
+			  document.getElementById('msg8').innerHTML="Between 3 to 20 characters";
+					document.getElementById('pincode').value = val;
+				document.getElementById('pincode').style.color = "red";
+					  return false;
+			}
+			else{
+			  document.getElementById('msg8').innerHTML=" ";
+			  document.getElementById('pincode').style.color = "green";
+			 //return true;
+			}
+		  }
+		  function Val()
+			{
+			  if(Validate()===false || Validatelname()===false || ValidateEmail()===false || Validatephone()===false || Validateaddress()===false)
+			  {
+				return false;
+			  }
+			}
+</script>
+<style>
+ .col-md-12 input:valid ~ span,
+.col-md-12 input:focus ~ span
+{
+	color: #e10707;
+	transform: translateX(0px) translateY(-34px);
+	font-size: 0.75em;
+}
+.col-md-6 input:valid ~ span,
+.col-md-6 input:focus ~ span
+{
+	color: #e10707;
+	transform: translateX(0px) translateY(-34px);
+	font-size: 0.75em;
+}
+</style>
 <!-- Replace "test" with your own sandbox Business account app client ID -->
     <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
